@@ -182,3 +182,25 @@ box-shadow: none; background: #fff; margin: 0 0 8px; padding: 12px 0;
 header { position: static; }
 a { text-decoration: none; color: #000; }
 }
+
+:where(a, button, [tabindex]:not([tabindex="-1"])):focus-visible {
+    outline: 3px solid #ffb74d;
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: #000;
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 8px;
+    z-index: 1000;
+}
+.skip-link:focus {
+    left: 12px;
+    top: 12px;
+}
+a:hover { text-decoration: underline; }
+a:visited { color: #8ab4f8; }
