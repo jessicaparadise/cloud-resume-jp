@@ -1,1 +1,50 @@
+name: Deploy (prefix) to S3 + CloudFront
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: ${{ secrets.AWS_REGION || 'us-west-2' }}
+  S3_BUCKET: ${{ secrets.S3_BUCKET || 'jessicaparadise.com' }}
+  S3_PREFIX: portfolio/      # <-- change this folder name if you like
+  DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID || 'E2Q2SDWJL2AHYI' }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # If this repo builds (Vite/React/etc.), add your build step here
+      # - uses: actions/setup-node@v4
+      #   with: { node-version: 20 }
+      # - run: npm ci && npm run build
+      # and change SOURCE_DIR below to 'dist' or 'build'
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Sync files to S3 prefix (no delete)
+        env:
+          SOURCE_DIR: .
+        run: |
+          aws s3 sync "$SOURCE_DIR" "s3://${{ env.S3_BUCKET }}/${{ env.S3_PREFIX }}" \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --exclude "README.md"
+
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ env.DISTRIBUTION_ID }}" \
+            --paths "/*"
 
