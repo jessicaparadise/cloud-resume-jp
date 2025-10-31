@@ -1,8 +1,3 @@
-variable "domain" {
-  description = "The domain name to be used for the Cloud Resume project"
-  type        = string
-  default     = "jessicaparadise.com"
-}
 
 resource "aws_route53_record" "root_domain" {
   zone_id = aws_route53_zone.main.zone_id
