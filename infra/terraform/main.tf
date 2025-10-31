@@ -32,13 +32,6 @@ provider "aws" {
   region = "us-east-1"
 }
 
-# ---- Variables ----
-variable "domain" {
-  description = "The domain name to be used for the Cloud Resume project"
-  type        = string
-  default     = "jessicaparadise.com"
-}
-
 # ---- Route 53 Hosted Zone (existing) ----
 data "aws_route53_zone" "main" {
   name         = var.domain
