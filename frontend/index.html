@@ -130,9 +130,29 @@
 </main>
 <footer role="contentinfo">
     <small>&copy; <span id="year"></span> Jessica Paradise</small>
+    
+    <p>Visitor Count: <span class="counter-number">Loading...</span></p>
+
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </footer>
+
+<script>
+    const counter = document.querySelector(".counter-number");
+
+    async function updateCounter() {
+        try {
+            let response = await fetch("https://57draatqxi.execute-api.us-east-2.amazonaws.com/default/VisitorCount");
+            let data = await response.json();
+            counter.innerHTML = `${data}`;
+        } catch (error) {
+            counter.innerHTML = "Error";
+            console.error("Counter failed:", error);
+        }
+    }
+
+    updateCounter();
+</script>
 </body>
 </html>
