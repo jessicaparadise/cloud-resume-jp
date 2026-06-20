@@ -37,10 +37,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=2" />
+    <link rel="stylesheet" href="styles.css?v=3" />
 </head>
 <body>
     <div class="grain" aria-hidden="true"></div>
+    <div class="fun-intro-overlay" aria-hidden="true">
+        <div class="fun-intro-orb"></div>
+    </div>
     <div class="sky" aria-hidden="true">
         <div class="plane">
             <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
@@ -74,7 +77,7 @@
  
     <section id="summary" class="reveal" aria-labelledby="summary-heading">
         <h2 id="summary-heading"><span class="section-num">01</span> Summary</h2>
-        <p>Cloud engineer in progress — AWS SAA-C03 certified, B.S. Computer Science (Aug 2027), DVA-C02 in July. I build and deploy end-to-end solutions on AWS: serverless (Lambda, API Gateway, DynamoDB), IoT pipelines, and infrastructure as code with Terraform and CI/CD. Prior to tech, 11+ years as a commercial pilot — Captain on transport-category aircraft, responsible for high-stakes systems and split-second decisions under pressure. I plan to bring that same operational discipline to cloud architecture.</p>
+        <p>I spent 11+ years as a pilot with a wide variety of missions. I flew for the airlines, cargo and business aviation. I genuinely love the flying — I still take to the sky for fun. But the lifestyle was tough, and honestly, I've always been someone who loves to build things. I finally decided to follow that instinct. Now I'm a B.S. Computer Science student and aspiring Cloud Architect, deploying end-to-end solutions across AWS serverless, IoT, and ML pipelines. The challenge has been exactly what I was looking for — and the flightdeck gave me the systems thinking and operational discipline to back it up.</p>
     </section>
  
     <section id="skills" class="reveal" aria-labelledby="skills-heading">
@@ -276,17 +279,44 @@
 
     // Theme switcher — Dark / Light / Fun
     const themeButtons = document.querySelectorAll('[data-set-theme]');
+    let activeTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+
     function applyTheme(theme) {
+        const prev = activeTheme;
+        activeTheme = theme;
         document.documentElement.setAttribute('data-theme', theme);
         try { localStorage.setItem('theme', theme); } catch (e) {}
         themeButtons.forEach(btn =>
             btn.setAttribute('aria-pressed', String(btn.dataset.setTheme === theme))
         );
+        if (theme === 'fun' && prev !== 'fun') runFunIntro();
     }
+
+    function runFunIntro() {
+        const html = document.documentElement;
+        html.classList.add('is-fun-intro');
+
+        setTimeout(() => {
+            html.classList.remove('is-fun-intro');
+            const items = [
+                document.querySelector('.hero-inner'),
+                ...document.querySelectorAll('.reveal.visible')
+            ].filter(Boolean);
+            items.forEach((el, i) => {
+                el.style.animationDelay = (i * 90) + 'ms';
+                el.classList.add('fun-spill');
+                el.addEventListener('animationend', () => {
+                    el.classList.remove('fun-spill');
+                    el.style.animationDelay = '';
+                }, { once: true });
+            });
+        }, 1500);
+    }
+
     themeButtons.forEach(btn =>
         btn.addEventListener('click', () => applyTheme(btn.dataset.setTheme))
     );
-    applyTheme(document.documentElement.getAttribute('data-theme') || 'dark');
+    applyTheme(activeTheme);
 
     const counter = document.querySelector(".counter-number");
     async function updateCounter() {
