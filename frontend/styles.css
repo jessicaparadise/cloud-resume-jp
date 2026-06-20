@@ -36,7 +36,7 @@
     --text: #f5edff;
     --secondary: #c2b3e8;
     --muted: #7a6ba3;
-    --accent: #ff5d8f;
+    --accent: #FBA0E3;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -244,7 +244,7 @@ body {
     height: 24px;
     color: var(--accent);
     opacity: 0.75;
-    filter: drop-shadow(0 0 5px rgba(255, 93, 143, 0.5));
+    filter: drop-shadow(0 0 5px rgba(251, 160, 227, 0.5));
     will-change: transform;
     animation: fly 24s linear infinite;
 }
@@ -292,23 +292,23 @@ body {
 
 @keyframes fun-overlay {
     0%   { opacity: 1; background: #100a1e; }
-    70%  { opacity: 1; background: #ff5d8f; }
-    100% { opacity: 0; background: #ff5d8f; }
+    70%  { opacity: 1; background: #FBA0E3; }
+    100% { opacity: 0; background: #FBA0E3; }
 }
 
 /* The glowing orb */
 .fun-intro-orb {
     width: 14px; height: 14px;
     border-radius: 50%;
-    background: #ff5d8f;
+    background: #FBA0E3;
     opacity: 0;
 }
 
 [data-theme="fun"].is-fun-intro .fun-intro-orb {
     animation: fun-orb 1.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     box-shadow:
-        0 0 18px 6px rgba(255,93,143,0.9),
-        0 0 50px 18px rgba(255,93,143,0.4);
+        0 0 18px 6px rgba(251,160,227,0.9),
+        0 0 50px 18px rgba(251,160,227,0.4);
 }
 
 @keyframes fun-orb {
