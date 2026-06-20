@@ -3,6 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        // Apply saved theme before first paint to avoid a flash
+        (function () {
+            try {
+                document.documentElement.setAttribute(
+                    'data-theme', localStorage.getItem('theme') || 'dark'
+                );
+            } catch (e) {}
+        })();
+    </script>
     <title>Jessica Paradise - Resume</title>
     <meta name="description" content="Aspiring Cloud Architect & B.S. Computer Science student. 11+ years in aviation. AWS, IoT, Python, serverless, and embedded systems builder." />
     <link rel="canonical" href="https://jessicaparadise.com" />
@@ -47,10 +57,10 @@
                 <span class="sep" aria-hidden="true">✦</span>
                 <span class="location">Los Angeles, CA</span>
             </div>
-            <div class="hero-actions">
-                <a href="#projects" class="btn btn--primary">View Projects</a>
-                <a href="#experience" class="btn btn--outline">Flight Log</a>
-                <a href="mailto:jessica.paradise@pm.me" class="btn btn--ghost">Get in Touch</a>
+            <div class="theme-switch" role="group" aria-label="Color theme">
+                <button type="button" class="theme-btn" data-set-theme="dark">Dark</button>
+                <button type="button" class="theme-btn" data-set-theme="light">Light</button>
+                <button type="button" class="theme-btn" data-set-theme="fun">Fun</button>
             </div>
         </div>
     </header>
@@ -258,7 +268,21 @@
  
 <script>
     document.getElementById('year').textContent = new Date().getFullYear();
- 
+
+    // Theme switcher — Dark / Light / Fun
+    const themeButtons = document.querySelectorAll('[data-set-theme]');
+    function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        try { localStorage.setItem('theme', theme); } catch (e) {}
+        themeButtons.forEach(btn =>
+            btn.setAttribute('aria-pressed', String(btn.dataset.setTheme === theme))
+        );
+    }
+    themeButtons.forEach(btn =>
+        btn.addEventListener('click', () => applyTheme(btn.dataset.setTheme))
+    );
+    applyTheme(document.documentElement.getAttribute('data-theme') || 'dark');
+
     const counter = document.querySelector(".counter-number");
     async function updateCounter() {
         try {
