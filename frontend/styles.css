@@ -6,27 +6,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
 
 :root {
-    --bg: #0f0f0e;
-    --text: #e8e5df;
-    --secondary: #a09d96;
-    --muted: #5c5a55;
-    --accent: #c4956a;
     --max-w: 720px;
     --gutter: 28px;
     --serif: 'Instrument Serif', 'Georgia', serif;
     --sans: 'Outfit', system-ui, sans-serif;
     --mono: 'DM Mono', monospace;
+
+    /* Dark theme (default) */
+    --bg: #0f0f0e;
+    --text: #e8e5df;
+    --secondary: #a09d96;
+    --muted: #5c5a55;
+    --accent: #c4956a;
 }
 
-@media (prefers-color-scheme: light) {
-    :root {
-        --bg: #f6f4f0;
-        --text: #1a1918;
-        --secondary: #5c5a55;
-        --muted: #9c9a95;
-        --accent: #a06b3f;
-    }
-    .grain { display: none !important; }
+/* Light theme */
+[data-theme="light"] {
+    --bg: #f6f4f0;
+    --text: #1a1918;
+    --secondary: #5c5a55;
+    --muted: #9c9a95;
+    --accent: #a06b3f;
+}
+[data-theme="light"] .grain { display: none !important; }
+
+/* Fun theme — dark base with vibrant color */
+[data-theme="fun"] {
+    --bg: #100a1e;
+    --text: #f5edff;
+    --secondary: #c2b3e8;
+    --muted: #7a6ba3;
+    --accent: #ff5d8f;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,6 +48,7 @@ body {
     background: var(--bg);
     font-size: 15px;
     line-height: 1.6;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .grain {
@@ -149,64 +160,37 @@ body {
 }
 
 /* =============================================
-   HERO BUTTONS
+   THEME SWITCHER
    ============================================= */
 
-.hero-actions {
+.theme-switch {
     margin-top: 40px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    display: inline-flex;
+    gap: 4px;
+    padding: 5px;
+    border: 1px solid var(--muted);
+    border-radius: 999px;
 }
 
-.btn {
-    display: inline-block;
+.theme-btn {
     font-family: var(--mono);
     font-size: 11px;
     font-weight: 400;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 2px;
-    transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+    color: var(--secondary);
+    background: transparent;
+    border: none;
+    border-radius: 999px;
+    padding: 7px 16px;
     cursor: pointer;
+    transition: background 0.2s, color 0.2s;
 }
-.btn:hover { transform: translateY(-1px); }
-.btn:active { transform: translateY(0); }
+.theme-btn:hover { color: var(--text); }
 
-/* Primary — filled accent */
-.btn--primary {
+.theme-btn[aria-pressed="true"] {
     background: var(--accent);
     color: var(--bg);
-    border: 1px solid var(--accent);
-}
-.btn--primary:hover {
-    background: transparent;
-    color: var(--accent);
-}
-
-/* Outline — transparent with border */
-.btn--outline {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--muted);
-}
-.btn--outline:hover {
-    border-color: var(--text);
-    color: var(--text);
-}
-
-/* Ghost — no border, text only */
-.btn--ghost {
-    background: transparent;
-    color: var(--secondary);
-    border: 1px solid transparent;
-    padding-left: 4px;
-    padding-right: 4px;
-}
-.btn--ghost:hover {
-    color: var(--text);
 }
 
 /* =============================================
