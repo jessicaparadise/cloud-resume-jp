@@ -166,31 +166,109 @@ body {
 .theme-switch {
     margin-top: 40px;
     display: inline-flex;
-    gap: 4px;
-    padding: 5px;
-    border: 1px solid var(--muted);
-    border-radius: 999px;
+    gap: 10px;
 }
 
+/* Brushed-silver metal buttons */
 .theme-btn {
     font-family: var(--mono);
     font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.06em;
+    font-weight: 500;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--secondary);
-    background: transparent;
-    border: none;
-    border-radius: 999px;
-    padding: 7px 16px;
+    color: #26262a;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s;
+    padding: 9px 18px;
+    border-radius: 7px;
+    border: 1px solid #6f747b;
+    border-top-color: #fbfcfd;
+    background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.10) 0 1px, rgba(0,0,0,0.04) 1px 2px),
+        linear-gradient(180deg, #ffffff 0%, #e6e8eb 20%, #c3c7cc 50%, #a4a9b0 80%, #d2d5d9 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.95),
+        inset 0 -2px 3px rgba(0,0,0,0.28),
+        0 2px 4px rgba(0,0,0,0.38);
+    text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
 }
-.theme-btn:hover { color: var(--text); }
 
+.theme-btn:hover {
+    filter: brightness(1.07);
+    transform: translateY(-1px);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.95),
+        inset 0 -2px 3px rgba(0,0,0,0.28),
+        0 5px 9px rgba(0,0,0,0.42);
+}
+
+.theme-btn:active { transform: translateY(0); }
+
+/* Pressed-in look marks the active theme */
 .theme-btn[aria-pressed="true"] {
-    background: var(--accent);
-    color: var(--bg);
+    color: #161618;
+    border-top-color: #8a8f96;
+    background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0 1px, rgba(0,0,0,0.05) 1px 2px),
+        linear-gradient(180deg, #a4a9b0 0%, #c0c4c9 45%, #e8eaec 100%);
+    box-shadow:
+        inset 0 2px 5px rgba(0,0,0,0.42),
+        inset 0 -1px 0 rgba(255,255,255,0.6),
+        0 1px 1px rgba(0,0,0,0.25);
+}
+
+.theme-btn:focus-visible {
+    outline: 1.5px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* =============================================
+   FUN MODE — FLYING PLANE
+   ============================================= */
+
+.sky {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+    display: none;
+}
+[data-theme="fun"] .sky { display: block; }
+
+.plane {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    color: var(--accent);
+    opacity: 0.75;
+    filter: drop-shadow(0 0 5px rgba(255, 93, 143, 0.5));
+    will-change: transform;
+    animation: fly 24s linear infinite;
+}
+
+.plane svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+    transform: rotate(90deg); /* nose points along the direction of travel */
+}
+
+@keyframes fly {
+    0%   { transform: translate(-12vw, 20vh) scaleX(1) rotate(6deg); }
+    22%  { transform: translate(42vw, 14vh) scaleX(1) rotate(-4deg); }
+    45%  { transform: translate(110vw, 22vh) scaleX(1) rotate(4deg); }
+    50%  { transform: translate(110vw, 58vh) scaleX(-1) rotate(5deg); }
+    72%  { transform: translate(44vw, 66vh) scaleX(-1) rotate(-4deg); }
+    95%  { transform: translate(-12vw, 60vh) scaleX(-1) rotate(4deg); }
+    100% { transform: translate(-12vw, 20vh) scaleX(1) rotate(6deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-theme="fun"] .sky { display: none; }
 }
 
 /* =============================================
@@ -544,7 +622,7 @@ a {
         --bg: #fff; --text: #111; --secondary: #444;
         --muted: #888; --accent: #8a5a30;
     }
-    .grain { display: none; }
+    .grain, .sky { display: none; }
     body { background: #fff; font-size: 11px; }
     .hero { padding: 20px 0; animation: none; }
     section { padding: 16px 0; border-color: #ddd; }
