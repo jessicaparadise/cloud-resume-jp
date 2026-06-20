@@ -149,6 +149,67 @@ body {
 }
 
 /* =============================================
+   HERO BUTTONS
+   ============================================= */
+
+.hero-actions {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.btn {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 2px;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+    cursor: pointer;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+/* Primary — filled accent */
+.btn--primary {
+    background: var(--accent);
+    color: var(--bg);
+    border: 1px solid var(--accent);
+}
+.btn--primary:hover {
+    background: transparent;
+    color: var(--accent);
+}
+
+/* Outline — transparent with border */
+.btn--outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--muted);
+}
+.btn--outline:hover {
+    border-color: var(--text);
+    color: var(--text);
+}
+
+/* Ghost — no border, text only */
+.btn--ghost {
+    background: transparent;
+    color: var(--secondary);
+    border: 1px solid transparent;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+.btn--ghost:hover {
+    color: var(--text);
+}
+
+/* =============================================
    SECTIONS
    ============================================= */
 
