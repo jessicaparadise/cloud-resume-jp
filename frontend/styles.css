@@ -247,6 +247,90 @@ body {
     filter: drop-shadow(0 0 5px rgba(251, 160, 227, 0.5));
     will-change: transform;
     animation: fly 24s linear infinite;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+/* Loop-de-loop triggered by JS */
+.plane.looping {
+    animation: fly 24s linear infinite, plane-loop 0.9s cubic-bezier(0.4,0,0.6,1) forwards;
+    opacity: 1;
+    filter: drop-shadow(0 0 10px rgba(251,160,227,0.9));
+}
+
+@keyframes plane-loop {
+    0%   { transform-origin: 50% 200%; }
+    100% { transform-origin: 50% 200%; rotate: 360deg; }
+}
+
+/* Confetti emoji drop from plane */
+.plane-drop {
+    position: fixed;
+    font-size: 18px;
+    pointer-events: none;
+    z-index: 9999;
+    animation: drop-fall 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes drop-fall {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(120px) rotate(360deg); opacity: 0; }
+}
+
+/* =============================================
+   FUN MODE — INTERACTIVE: CURSOR TRAIL + CLICK SPARKS
+   ============================================= */
+
+.fun-trail-dot {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    background: var(--accent);
+    animation: trail-fade 0.6s ease forwards;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes trail-fade {
+    0%   { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0;   transform: translate(-50%, -50%) scale(0.2); }
+}
+
+.fun-spark {
+    position: fixed;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    animation: spark-burst 0.7s ease-out forwards;
+}
+
+@keyframes spark-burst {
+    0%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.3); }
+}
+
+/* =============================================
+   FUN MODE — HEADING HOVER GLOW
+   ============================================= */
+
+[data-theme="fun"] h2,
+[data-theme="fun"] h3 {
+    transition: text-shadow 0.3s ease, color 0.3s ease;
+}
+
+[data-theme="fun"] h2:hover,
+[data-theme="fun"] h3:hover {
+    color: #FBA0E3;
+    text-shadow:
+        0 0 8px rgba(251,160,227,0.8),
+        0 0 20px rgba(251,160,227,0.4),
+        0 0 40px rgba(200,130,255,0.2);
+    cursor: default;
 }
 
 .plane svg {
