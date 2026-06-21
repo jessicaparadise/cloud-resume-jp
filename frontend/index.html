@@ -37,7 +37,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=5" />
+    <link rel="stylesheet" href="styles.css?v=6" />
 </head>
 <body>
     <div class="grain" aria-hidden="true"></div>
@@ -77,7 +77,7 @@
  
     <section id="summary" class="reveal" aria-labelledby="summary-heading">
         <h2 id="summary-heading"><span class="section-num">01</span> Summary</h2>
-        <p>Cloud engineer in progress — AWS SAA-C03 certified, B.S. Computer Science (2027), DVA-C02 in July. I build and deploy end-to-end solutions on AWS: serverless (Lambda, API Gateway, DynamoDB), IoT pipelines, and infrastructure as code with Terraform and CI/CD. Prior to tech, 11+ years as a commercial pilot —  responsible for high-stakes systems and split-second decisions under pressure. I plan to bring that same operational discipline to cloud architecture.</p>
+        <p>I spent 11+ years as a pilot with a wide variety of missions. I flew for the airlines, cargo and business aviation. I genuinely love the flying — I still take to the sky for fun. But the lifestyle was tough, and honestly, I've always been someone who loves to build things. I finally decided to follow that instinct. Now I'm a B.S. Computer Science student and aspiring Cloud Architect, deploying end-to-end solutions across AWS serverless, IoT, and ML pipelines. The challenge has been exactly what I was looking for — and the flightdeck gave me the systems thinking and operational discipline to back it up.</p>
     </section>
  
     <section id="skills" class="reveal" aria-labelledby="skills-heading">
@@ -337,6 +337,80 @@
         });
     }, { threshold: 0.08 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── FUN MODE INTERACTIVITY ──────────────────────────────────────────────
+
+    function isFun() { return document.documentElement.getAttribute('data-theme') === 'fun'; }
+    const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Cursor trail
+    let lastTrail = 0;
+    document.addEventListener('mousemove', (e) => {
+        if (!isFun() || prefersReducedMotion()) return;
+        const now = Date.now();
+        if (now - lastTrail < 40) return;
+        lastTrail = now;
+        const dot = document.createElement('div');
+        dot.className = 'fun-trail-dot';
+        dot.style.left = e.clientX + 'px';
+        dot.style.top  = e.clientY + 'px';
+        const colors = ['#FBA0E3','#c882ff','#ff9de6','#e0aaff'];
+        dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+        dot.style.width  = (4 + Math.random() * 4) + 'px';
+        dot.style.height = dot.style.width;
+        document.body.appendChild(dot);
+        dot.addEventListener('animationend', () => dot.remove());
+    });
+
+    // Click spark burst
+    document.addEventListener('click', (e) => {
+        if (!isFun() || prefersReducedMotion()) return;
+        if (e.target.closest('.theme-btn, .plane, a, button')) return;
+        const colors = ['#FBA0E3','#c882ff','#fff0fc','#e0aaff','#ff9de6'];
+        for (let i = 0; i < 10; i++) {
+            const spark = document.createElement('div');
+            spark.className = 'fun-spark';
+            spark.style.left = e.clientX + 'px';
+            spark.style.top  = e.clientY + 'px';
+            spark.style.background = colors[Math.floor(Math.random() * colors.length)];
+            const angle = (Math.PI * 2 * i) / 10 + Math.random() * 0.5;
+            const dist  = 30 + Math.random() * 50;
+            spark.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+            spark.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+            document.body.appendChild(spark);
+            spark.addEventListener('animationend', () => spark.remove());
+        }
+    });
+
+    // Plane easter egg — loop-de-loop + emoji drop
+    const planeEl = document.querySelector('.plane');
+    const drops = ['✨','💜','🌸','⭐','🛩️','💫','🎀'];
+    let planeLooping = false;
+    if (planeEl) {
+        planeEl.addEventListener('click', (e) => {
+            if (!isFun() || planeLooping || prefersReducedMotion()) return;
+            e.stopPropagation();
+            planeLooping = true;
+            planeEl.classList.add('looping');
+            // drop emojis
+            const rect = planeEl.getBoundingClientRect();
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const d = document.createElement('div');
+                    d.className = 'plane-drop';
+                    d.textContent = drops[Math.floor(Math.random() * drops.length)];
+                    d.style.left = (rect.left + rect.width / 2 + (Math.random() - 0.5) * 30) + 'px';
+                    d.style.top  = (rect.top  + rect.height / 2) + 'px';
+                    document.body.appendChild(d);
+                    d.addEventListener('animationend', () => d.remove());
+                }, i * 120);
+            }
+            setTimeout(() => {
+                planeEl.classList.remove('looping');
+                planeLooping = false;
+            }, 900);
+        });
+    }
 </script>
 </body>
 </html>
