@@ -269,7 +269,8 @@ body {
     background: var(--accent);
     border-radius: 3px;
     box-shadow: 0 0 8px rgba(251,160,227,0.6);
-    pointer-events: none;
+    pointer-events: auto;
+    cursor: pointer;
     /* counter-flip so the text stays readable when the plane mirrors */
     animation: banner-face 24s linear infinite;
 }
