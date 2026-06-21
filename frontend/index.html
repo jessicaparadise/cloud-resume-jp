@@ -37,7 +37,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=10" />
+    <link rel="stylesheet" href="styles.css?v=11" />
 </head>
 <body>
     <div class="grain" aria-hidden="true"></div>
@@ -392,7 +392,6 @@
             if (!isFun() || planeLooping || prefersReducedMotion()) return;
             e.stopPropagation();
             planeLooping = true;
-            planeEl.classList.add('looping');
             // drop emojis
             const rect = planeEl.getBoundingClientRect();
             for (let i = 0; i < 5; i++) {
@@ -406,10 +405,7 @@
                     d.addEventListener('animationend', () => d.remove());
                 }, i * 120);
             }
-            setTimeout(() => {
-                planeEl.classList.remove('looping');
-                planeLooping = false;
-            }, 1600);
+            setTimeout(() => { planeLooping = false; }, 800);
         });
     }
 </script>
