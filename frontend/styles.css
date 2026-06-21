@@ -292,19 +292,22 @@ body {
     48%, 100% { scale: -1 1; }
 }
 
-/* Loop-de-loop triggered by JS — a tight, clearly visible circular loop */
+/* Loop-de-loop triggered by JS — a tight loop in place.
+   The flight path is paused so the loop stays put instead of drifting
+   off-screen, and the circle is kept small (~14px radius). */
 .plane.looping {
-    animation: fly 24s linear infinite, plane-loop 0.9s ease-in-out;
+    animation: fly 24s linear infinite, plane-loop 1.6s ease-in-out;
+    animation-play-state: paused, running;
     opacity: 1;
     filter: drop-shadow(0 0 12px rgba(251,160,227,1));
 }
 
 @keyframes plane-loop {
-    0%   { translate: 0 0;          rotate: 0deg; }
-    25%  { translate: 22px -22px;   rotate: 90deg; }
-    50%  { translate: 0 -46px;      rotate: 180deg; }
-    75%  { translate: -22px -22px;  rotate: 270deg; }
-    100% { translate: 0 0;          rotate: 360deg; }
+    0%   { translate: 0 0;        rotate: 0deg; }
+    25%  { translate: 14px -14px; rotate: 90deg; }
+    50%  { translate: 0 -28px;    rotate: 180deg; }
+    75%  { translate: -14px -14px; rotate: 270deg; }
+    100% { translate: 0 0;        rotate: 360deg; }
 }
 
 /* Confetti emoji drop from plane */
