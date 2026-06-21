@@ -616,6 +616,17 @@ h2 {
     font-weight: 400;
 }
 
+/* Certifications render as a clean, bullet-free list to match the rest of
+   the resume (no jarring default list markers or indentation). */
+.skill-group .tags ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.skill-group .tags li + li {
+    margin-top: 4px;
+}
+
 /* =============================================
    PROJECTS — Clean editorial blocks
    ============================================= */
