@@ -251,16 +251,59 @@ body {
     pointer-events: auto;
 }
 
-/* Loop-de-loop triggered by JS */
+/* Towed banner so visitors know the plane is clickable */
+.plane-banner {
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 12px;
+    padding: 3px 9px;
+    white-space: nowrap;
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #100a1e;
+    background: var(--accent);
+    border-radius: 3px;
+    box-shadow: 0 0 8px rgba(251,160,227,0.6);
+    pointer-events: none;
+    /* counter-flip so the text stays readable when the plane mirrors */
+    animation: banner-face 24s linear infinite;
+}
+
+/* little tow line from banner to plane */
+.plane-banner::after {
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    width: 12px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.7;
+}
+
+@keyframes banner-face {
+    0%, 47.9% { scale: 1 1; }
+    48%, 100% { scale: -1 1; }
+}
+
+/* Loop-de-loop triggered by JS — a tight, clearly visible circular loop */
 .plane.looping {
-    animation: fly 24s linear infinite, plane-loop 0.9s cubic-bezier(0.4,0,0.6,1) forwards;
+    animation: fly 24s linear infinite, plane-loop 0.9s ease-in-out;
     opacity: 1;
-    filter: drop-shadow(0 0 10px rgba(251,160,227,0.9));
+    filter: drop-shadow(0 0 12px rgba(251,160,227,1));
 }
 
 @keyframes plane-loop {
-    0%   { transform-origin: 50% 200%; }
-    100% { transform-origin: 50% 200%; rotate: 360deg; }
+    0%   { translate: 0 0;          rotate: 0deg; }
+    25%  { translate: 22px -22px;   rotate: 90deg; }
+    50%  { translate: 0 -46px;      rotate: 180deg; }
+    75%  { translate: -22px -22px;  rotate: 270deg; }
+    100% { translate: 0 0;          rotate: 360deg; }
 }
 
 /* Confetti emoji drop from plane */
