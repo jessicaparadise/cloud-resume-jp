@@ -37,7 +37,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=11" />
+    <link rel="stylesheet" href="styles.css?v=12" />
 </head>
 <body>
     <div class="grain" aria-hidden="true"></div>
@@ -118,7 +118,7 @@
                 <span class="tag hw">INMP441</span><span class="tag hw">SSD1306 OLED</span>
                 <span class="tag hw">DHT11</span><span class="tag hw">TP4056</span>
             </div>
-      
+        </div>
     </section>
  
     <section id="projects" class="reveal" aria-labelledby="projects-heading">
@@ -296,26 +296,36 @@
         if (theme === 'fun' && prev !== 'fun') runFunIntro();
     }
 
-    function runFunIntro() {
+    function endFunIntro() {
         const html = document.documentElement;
-        html.classList.add('is-fun-intro');
-
-        setTimeout(() => {
-            html.classList.remove('is-fun-intro');
-            const items = [
-                document.querySelector('.hero-inner'),
-                ...document.querySelectorAll('.reveal.visible')
-            ].filter(Boolean);
-            items.forEach((el, i) => {
-                el.style.animationDelay = (i * 90) + 'ms';
-                el.classList.add('fun-spill');
-                el.addEventListener('animationend', () => {
-                    el.classList.remove('fun-spill');
-                    el.style.animationDelay = '';
-                }, { once: true });
-            });
-        }, 1800);
+        if (!html.classList.contains('is-fun-intro')) return;
+        html.classList.remove('is-fun-intro');
+        const items = [
+            document.querySelector('.hero-inner'),
+            ...document.querySelectorAll('.reveal.visible')
+        ].filter(Boolean);
+        items.forEach((el, i) => {
+            el.style.animationDelay = (i * 90) + 'ms';
+            el.classList.add('fun-spill');
+            el.addEventListener('animationend', () => {
+                el.classList.remove('fun-spill');
+                el.style.animationDelay = '';
+            }, { once: true });
+        });
     }
+
+    function runFunIntro() {
+        document.documentElement.classList.add('is-fun-intro');
+        setTimeout(endFunIntro, 1800);
+    }
+
+    // Failsafe: on mobile the timer above can be throttled if the page is
+    // backgrounded while the intro plays, leaving content hidden. End the
+    // intro as soon as the page is shown again so it can never get stuck.
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) endFunIntro();
+    });
+    window.addEventListener('pageshow', endFunIntro);
 
     themeButtons.forEach(btn =>
         btn.addEventListener('click', () => applyTheme(btn.dataset.setTheme))
@@ -335,12 +345,19 @@
     }
     updateCounter();
  
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    const reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.08 });
+        reveals.forEach(el => observer.observe(el));
+    } else {
+        // No IntersectionObserver support — show everything rather than
+        // leaving the content stuck at opacity 0.
+        reveals.forEach(el => el.classList.add('visible'));
+    }
 
     // ── FUN MODE INTERACTIVITY ──────────────────────────────────────────────
 

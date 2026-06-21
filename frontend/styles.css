@@ -489,12 +489,11 @@ body {
     100% { transform: scale(14); opacity: 0; }
 }
 
-/* Hide content while intro plays */
-html[data-theme="fun"].is-fun-intro .hero,
-html[data-theme="fun"].is-fun-intro .reveal {
-    opacity: 0 !important;
-    transition: none !important;
-}
+/* NOTE: the intro overlay above fully covers the page while it plays, so the
+   content itself is intentionally NOT hidden here. Previously this hid .hero
+   and every .reveal with opacity:0, relying on a JS timer to bring them back —
+   if that timer was throttled (common on mobile when the tab is backgrounded),
+   the page was left blank with only the plane flying. */
 
 /* Content spills in after overlay fades */
 .fun-spill {
