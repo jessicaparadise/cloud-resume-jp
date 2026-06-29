@@ -28,7 +28,7 @@
         "email": "mailto:jessica.paradise@pm.me",
         "url": "https://jessicaparadise.com",
         "sameAs": [
-            "https://www.linkedin.com/in/jessica-paradise",
+            "https://www.linkedin.com/in/jessicaparadise",
             "https://github.com/jessicaparadise"
         ]
     }
@@ -78,7 +78,7 @@
  
     <section id="summary" class="reveal" aria-labelledby="summary-heading">
         <h2 id="summary-heading"><span class="section-num">01</span> Summary</h2>
-        <p>High-reliability Systems Engineer and AWS Cloud Architect transitioning 11+ years of mission-critical aviation operations into enterprise cloud infrastructure. Expert in designing and deploying resilient, end-to-end distributed systems across serverless, IoT, and ML pipelines using Terraform and CI/CD automation. Combines deep technical proficiency in modern cloud-native architectures with an elite operational background rooted in structured fault-isolation, strict SOPs, and zero-fail risk management.</p>
+        <p>High-reliability Systems Engineer and AWS Cloud Architect transitioning 11+ years of mission-critical aviation operations into enterprise cloud infrastructure. I'm esigning and deploying resilient, end-to-end distributed systems across serverless, IoT, and ML pipelines using Terraform and CI/CD automation. Combines deep technical proficiency in modern cloud-native architectures with an elite operational background rooted in structured fault-isolation, strict SOPs, and zero-fail risk management.</p>
     </section>
  
     <section id="skills" class="reveal" aria-labelledby="skills-heading">
@@ -89,7 +89,7 @@
             <div class="tags">
                 <span class="tag">AWS</span><span class="tag">EC2</span><span class="tag">S3</span><span class="tag">Lambda</span>
                 <span class="tag">CloudFront</span><span class="tag">API Gateway</span><span class="tag">DynamoDB</span>
-                <span class="tag">IoT Core</span><span class="tag">SageMaker</span>
+                <span class="tag">IoT Core</span><span class="tag">Kinesis</span>
                 <span class="tag">Route 53</span><span class="tag">VPC</span><span class="tag">IAM</span>
                 <span class="tag">SNS</span><span class="tag">SQS</span>
             </div>
@@ -97,15 +97,15 @@
         <div class="skill-group">
             <h3>DevOps & Automation</h3>
             <div class="tags">
-                <span class="tag accent">Infrastructure as Code (Terraform)</span><span class="tag accent">CI/CD (GitHub Actions)</span>
+                <span class="tag accent">Terraform (Infrastructure as Code)</span><span class="tag accent">GitHub Actions CI/CD (OIDC)</span>
                 <span class="tag accent">Git</span><span class="tag accent">Vercel</span>
             </div>
         </div>
         <div class="skill-group">
             <h3>Software & Hardware Systems</h3>
             <div class="tags">
-                <span class="tag hw">JavaScript</span><span class="tag hw">Python (ML Pipelines)</span><span class="tag hw">ESP32 Microcontrollers</span>
-                <span class="tag hw">KiCad (PCB Design)</span><span class="tag hw">Sensor/Audio Hardware Integration</span>
+                <span class="tag hw">ESP32 Microcontrollers</span><span class="tag hw">KiCad (PCB Design)</span><span class="tag hw">Sensor/Audio Integration</span>
+                <span class="tag hw">Python</span><span class="tag hw">JavaScript</span>
             </div>
         </div>
     </section>
@@ -127,20 +127,20 @@
         <h2 id="projects-heading"><span class="section-num">04</span> Cloud & Systems Projects</h2>
  
         <div class="project-card" tabindex="0">
-            <div class="project-icon">🫀</div>
+            <div class="project-icon">🛫</div>
             <div class="project-body">
-                <h3>Attune AI + Health <span class="badge">Architect & Lead Engineer</span></h3>
-                <p>Designed and deployed a fully automated, event-driven pipeline parsing biometric telemetry (HRV, sleep, activity) to generate AI-driven, data-backed health strategies. Architected the entire infrastructure from scratch using Terraform, managing 30+ cloud resources across AWS Lambda, DynamoDB, Cognito, and external API integrations.</p>
-                <div class="project-stack"><span>React Native</span><span>Lambda</span><span>DynamoDB</span><span>Claude API</span><span>Cognito</span><span>Terraform</span></div>
+                <h3>Mission ATLAS<span class="badge">Real-Time Aircraft Telemetry Platform</span></h3>
+                <p>Built a streaming data platform ingesting live ADS-B aircraft telemetry through AWS Kinesis, provisioned entirely with Terraform. Secured CI/CD with GitHub Actions using OIDC (keyless auth), with S3 remote state and AWS Budgets cost guardrails. Documented architecture decisions in ADRs.</p>
+                <div class="project-stack"><span>Kinesis</span><span>Terraform</span><span>GitHub Actions (OIDC)</span><span>S3</span><span>Lambda</span><span>IAM</span></div>
             </div>
         </div>
 
         <div class="project-card" tabindex="0">
-            <div class="project-icon">🐱</div>
+            <div class="project-icon">🌡️</div>
             <div class="project-body">
-                <h3>Earl's Meow Interpreter AI + Hardware <span class="badge">Full-Stack IoT & ML</span></h3>
-                <p>Engineered an end-to-end hardware-to-cloud system, building a custom ESP32-powered physical device in KiCad with integrated acoustic and power management circuits. Developed an asynchronous machine learning pipeline using AWS SageMaker to ingest, process, and classify audio vocalization patterns dynamically.</p>
-                <div class="project-stack"><span>KiCad</span><span>ESP32</span><span>SageMaker</span><span>INMP441</span></div>
+                <h3>IoT Environmental Monitor<span class="badge">Edge-to-Cloud</span></h3>
+                <p>Built multiple edge-to-cloud systems streaming live sensor data via AWS IoT Core to Lambda and DynamoDB, with SNS alerting and real-time dashboards.</p>
+                <div class="project-stack"><span>IoT Core</span><span>ESP32</span><span>SNS</span><span>API Gateway</span></div>
             </div>
         </div>
          
@@ -171,14 +171,14 @@
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <div class="timeline-header">
-                        <h3>Commercial & Mission-Critical Flight Operations</h3>
+                        <h3>Airline & Business Aviation Captain / First Officer</h3>
                         <span class="timeline-date">Jan 2014 – Present</span>
                     </div>
                     <h4 style="margin: 0.5rem 0; font-family: 'DM Mono', monospace; font-size: 0.9rem; color: var(--text-muted);">Captain / First Officer / Systems Commander</h4>
                     <ul>
-                        <li><strong>Distributed Systems Management:</strong> Led end-to-end operational readiness and safety for high-value, complex assets across dynamic international environments, ensuring 100% compliance with rigid regulatory frameworks (FAA/DoD).</li>
-                        <li><strong>Fault Isolation & Real-Time Troubleshooting:</strong> Mastered the art of structured system diagnostics under extreme pressure, identifying, isolating, and mitigating critical electronic, mechanical, and systemic failures in real time.</li>
-                        <li><strong>Cross-Functional Coordination:</strong> Managed complex logistical pipelines involving multi-tiered stakeholder groups, strict on-time delivery constraints, and rapidly shifting environmental parameters.</li>
+                        <li>Held command authority over multi-million-dollar aircraft and crew, maintaining full compliance with strict FAA regulatory standards across domestic and international operations.</li>
+                        <li>Diagnosed and resolved electronic, mechanical, and systems failures in real time under high-pressure conditions, using structured fault-isolation procedures where errors carry no margin.</li>
+                        <li>Coordinated across dispatch, maintenance, ATC, and crew under tight time constraints and rapidly changing conditions — keeping complex operations on schedule and safe.</li>
                     </ul>
                 </div>
             </div>
