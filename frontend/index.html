@@ -1,352 +1,725 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--
+  Jessica Paradise — résumé site
+  One file: all CSS and JS are inline, so there is no stylesheet to cache-bust.
+  Assets expected next to it: /favicon.ico and aws.png.
+
+  Passed DVA-C02? Change data-dva="pending" to data-dva="passed" on the <html> tag below.
+  The route chart, the plane and the certifications list all update from that one attribute.
+-->
+<html lang="en" data-dva="pending">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-        // Apply saved theme before first paint to avoid a flash
-        (function () {
-            try {
-                document.documentElement.setAttribute(
-                    'data-theme', localStorage.getItem('theme') || 'dark'
-                );
-            } catch (e) {}
-        })();
-    </script>
-    <title>Jessica Paradise - Resume</title>
-    <meta name="description" content="Aspiring Cloud Architect with 11+ years in mission-critical aviation operations, now building hands-on AWS infrastructure and DevOps pipelines. AWS Certified Solutions Architect – Associate, currently completing a B.S. in Computer Science. Designing and deploying real serverless, IoT, and data-streaming projects on AWS using Terraform for infrastructure-as-code and GitHub Actions CI/CD for automated, secure deployments. Brings a disciplined operational background — structured fault isolation, strict SOPs, and risk management — to building reliable cloud systems." />
-    <link rel="canonical" href="https://jessicaparadise.com" />
-    <meta name="author" content="Jessica Paradise" />
-    <meta name="robots" content="index, follow" />
- 
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Jessica Paradise",
-        "jobTitle": "Cloud Architect & Systems Engineer",
-        "email": "mailto:jessica.paradise@pm.me",
-        "url": "https://jessicaparadise.com",
-        "sameAs": [
-            "https://www.linkedin.com/in/jessicaparadise",
-            "https://github.com/jessicaparadise"
-        ]
-    }
-    </script>
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=13" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jessica Paradise | AWS Solutions Architect and jet captain</title>
+<meta name="description" content="AWS Certified Solutions Architect and ATP-rated jet captain with 11+ years in mission-critical aviation, building serverless, IoT and data-streaming systems on AWS with Terraform and GitHub Actions.">
+<link rel="canonical" href="https://jessicaparadise.com">
+<meta name="author" content="Jessica Paradise">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jessicaparadise.com">
+<meta property="og:title" content="Jessica Paradise | AWS Solutions Architect and jet captain">
+<meta property="og:description" content="Eleven years flying through clouds. Now I build them.">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f1f4ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1522" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.ico">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Jessica Paradise",
+  "jobTitle": "Cloud Architect & Systems Engineer",
+  "email": "mailto:jessica.paradise@pm.me",
+  "url": "https://jessicaparadise.com",
+  "sameAs": [
+    "https://www.linkedin.com/in/jessica-paradise",
+    "https://github.com/jessicaparadise"
+  ]
+}
+</script>
+<script>
+  // Apply a saved Day/Night choice before first paint. No saved choice = follow the system.
+  try {
+    var saved = localStorage.getItem('chart-theme');
+    if (saved === 'light' || saved === 'dark') document.documentElement.setAttribute('data-theme', saved);
+  } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=B612:ital,wght@0,400;0,700;1,400&family=B612+Mono&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   Route chart — an IFR-chart look for a pilot turned cloud engineer.
+   Day = paper chart. Night = EFB night mode.
+   Color meaning: ink = done, magenta = in progress, blue = links / destination.
+   ========================================================================== */
+
+:root {
+  --paper: #f1f4ee;
+  --ink: #15202b;
+  --ink-2: #4b5866;
+  --rule: #c9d2cb;
+  --blue: #1e5aa8;
+  --magenta: #a3246e;
+  --font: "B612", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "B612 Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --wrap: 1120px;
+  --gutter: clamp(20px, 4vw, 40px);
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --paper: #0b1522;
+  --ink: #e3e9f0;
+  --ink-2: #9dafc2;
+  --rule: #2a3c52;
+  --blue: #7fb0f5;
+  --magenta: #f07bc0;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0b1522;
+    --ink: #e3e9f0;
+    --ink-2: #9dafc2;
+    --rule: #2a3c52;
+    --blue: #7fb0f5;
+    --magenta: #f07bc0;
+    color-scheme: dark;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background-color .3s ease, color .3s ease;
+}
+@supports (overflow: clip) { body { overflow-x: clip; } }
+h1, h2, h3, p, ul, ol, figure { margin: 0; }
+img, svg { display: block; max-width: 100%; }
+a { color: var(--blue); text-decoration-thickness: 1px; text-underline-offset: .22em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 2px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip {
+  position: absolute; left: 12px; top: -60px; z-index: 10;
+  background: var(--ink); color: var(--paper);
+  padding: 8px 14px; border-radius: 3px; text-decoration: none;
+}
+.skip:focus { top: 12px; }
+.wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
+
+/* One-attribute switch for the DVA-C02 result */
+[data-dva="pending"] .dva-passed,
+[data-dva="passed"] .dva-pending { display: none; }
+
+/* ---------- Hero ---------- */
+
+.hero { position: relative; isolation: isolate; padding-block: 22px 8px; }
+.hero::before {
+  /* chart graticule: lat/long lines with minute ticks */
+  content: "";
+  position: absolute;
+  inset: 0 calc(50% - 50vw);
+  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='none' stroke='%236f8294' stroke-opacity='.55'%3E%3Cpath d='M0 .5H160M.5 0V160'/%3E%3Cpath d='M16 .5v3.5M.5 16h3.5M32 .5v3.5M.5 32h3.5M48 .5v3.5M.5 48h3.5M64 .5v3.5M.5 64h3.5M80 .5v7M.5 80h7M96 .5v3.5M.5 96h3.5M112 .5v3.5M.5 112h3.5M128 .5v3.5M.5 128h3.5M144 .5v3.5M.5 144h3.5'/%3E%3C/g%3E%3C/svg%3E");
+  background-position: center 0;
+  opacity: .6;
+  -webkit-mask-image: radial-gradient(ellipse 72% 80% at 50% 62%, #000 30%, transparent 100%);
+          mask-image: radial-gradient(ellipse 72% 80% at 50% 62%, #000 30%, transparent 100%);
+  pointer-events: none;
+}
+.hero-top { display: flex; justify-content: flex-end; }
+.theme {
+  display: inline-flex; padding: 2px;
+  border: 1px solid var(--rule); border-radius: 4px; background: var(--paper);
+}
+.theme button {
+  font: inherit; font-size: .8125rem; color: var(--ink-2);
+  background: none; border: 0; border-radius: 3px;
+  padding: 5px 12px; cursor: pointer;
+}
+.theme button:hover { color: var(--ink); }
+.theme button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+.hero h1 {
+  margin-top: clamp(16px, 4vw, 40px);
+  font-size: clamp(2.75rem, 1.4rem + 5.4vw, 5.75rem);
+  font-weight: 700;
+  line-height: .98;
+  letter-spacing: -.035em;
+}
+.lede {
+  margin-top: 18px;
+  font-size: clamp(1.375rem, 1rem + 1.7vw, 2.125rem);
+  line-height: 1.22;
+  letter-spacing: -.01em;
+}
+.intro { margin-top: 16px; max-width: 58ch; color: var(--ink-2); font-size: 1.0625rem; }
+.contact-print { display: none; }
+.actions { margin-top: 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 26px; }
+.btn {
+  display: inline-block; padding: 11px 20px; border-radius: 3px;
+  background: var(--ink); color: var(--paper);
+  font-weight: 700; text-decoration: none;
+}
+.btn:hover { background: var(--blue); color: var(--paper); }
+.linkish {
+  font: inherit; color: var(--blue); background: none; border: 0; padding: 0; cursor: pointer;
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .22em;
+}
+.linkish:hover { text-decoration-thickness: 2px; }
+
+/* ---------- Route chart ---------- */
+
+.chart { margin-top: clamp(28px, 4vw, 44px); }
+.route { width: 100%; height: auto; overflow: visible; }
+.route-v { display: none; max-width: 440px; }
+@media (max-width: 879px) {
+  .route-h { display: none; }
+  .route-v { display: block; }
+}
+.route text { font-family: var(--font); }
+.t-name { font-size: 16px; font-weight: 700; fill: var(--ink); }
+.t-detail { font-size: 13.5px; fill: var(--ink-2); }
+.route-v .t-name { font-size: 15px; }
+.route-v .t-detail { font-size: 13px; }
+.t-now { fill: var(--magenta); }
+
+.leg { fill: none; stroke-linecap: round; }
+.leg.done { stroke: var(--ink); stroke-width: 2.25; }
+.leg.active { stroke: var(--magenta); stroke-width: 3.25; }
+.leg.ahead { stroke: var(--ink-2); stroke-width: 1.75; stroke-dasharray: 5 7; }
+.wp { stroke: var(--ink); stroke-width: 1.75; stroke-linejoin: round; }
+.wp.done { fill: var(--ink); }
+.wp.open { fill: var(--paper); }
+
+.apt .ring { fill: var(--paper); stroke: var(--blue); stroke-width: 2.5; }
+.apt .rwy { stroke: var(--blue); stroke-width: 3.5; }
+.apt .svc { stroke: var(--blue); stroke-width: 2.5; }
+.mile rect { fill: var(--paper); stroke: var(--ink-2); stroke-width: 1; }
+.mile text { font-size: 12.5px; fill: var(--ink); }
+.rose .ring, .rose .ticks { fill: none; stroke: var(--blue); }
+.rose .ring { stroke-width: 1.25; }
+.rose .ticks { stroke-width: 1.1; }
+.rose .hex { fill: var(--paper); stroke: var(--blue); stroke-width: 1.6; }
+.rose .dot, .rose .arrow { fill: var(--blue); }
+.navbox .frame { fill: var(--paper); stroke: var(--blue); stroke-width: 1.5; }
+.navbox .nav-name { font-size: 13px; font-weight: 700; fill: var(--blue); }
+.navbox .nav-id { font-family: var(--mono); font-size: 12px; fill: var(--blue); }
+.navbox .morse rect { fill: var(--blue); }
+
+.plane { cursor: pointer; }
+.plane path {
+  fill: var(--ink);
+  stroke: var(--paper); stroke-width: 3; stroke-linejoin: round;
+  paint-order: stroke;
+}
+.plane-body { transform-box: fill-box; transform-origin: center; }
+
+/* The one orchestrated moment: the route draws itself once on load. */
+@media (prefers-reduced-motion: no-preference) {
+  .route .draw { stroke-dasharray: 1 1; animation: draw .55s cubic-bezier(.55, 0, .35, 1) var(--d, 0s) backwards; }
+  .route .fade { animation: fade .45s ease-out var(--d, 0s) backwards; }
+  .route .pop  { transform-box: fill-box; transform-origin: center; animation: pop .45s cubic-bezier(.3, 1.6, .55, 1) var(--d, 0s) backwards; }
+  .route .glide { animation: glide .9s cubic-bezier(.2, .8, .2, 1) var(--d, 0s) backwards; }
+  .plane-body.rock { animation: rock .8s ease-in-out; }
+}
+@keyframes draw  { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes fade  { from { opacity: 0; } }
+@keyframes pop   { from { opacity: 0; transform: scale(.3); } }
+@keyframes glide { from { opacity: 0; transform: translateY(30px); } }
+@keyframes rock  { 25%, 75% { transform: scaleX(.45); } 50% { transform: scaleX(1); } }
+
+.legend {
+  margin-top: 12px;
+  display: flex; flex-wrap: wrap; gap: 6px 22px;
+  font-size: .8125rem; color: var(--ink-2);
+}
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.legend svg { width: 14px; height: 12px; overflow: visible; }
+.legend svg.line { width: 24px; height: 8px; }
+
+/* ---------- Sections ---------- */
+
+main { padding-top: clamp(64px, 9vw, 120px); }
+.block { display: grid; gap: 18px 56px; padding-bottom: clamp(64px, 8vw, 112px); }
+@media (min-width: 900px) {
+  .block { grid-template-columns: 170px minmax(0, 1fr); }
+}
+.block > h2 { font-size: 1.375rem; line-height: 1.35; font-weight: 700; }
+h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
+
+.prose { max-width: 64ch; }
+.prose p { font-size: 1.125rem; line-height: 1.65; }
+.prose p + p { margin-top: 1em; }
+
+.carry { margin-top: 40px; max-width: 760px; }
+.carry h3 { font-size: 1rem; margin-bottom: 10px; }
+.carry table { width: 100%; border-collapse: collapse; font-size: .9375rem; }
+.carry th {
+  text-align: left; font-weight: 400; font-size: .8125rem; color: var(--ink-2);
+  padding: 0 16px 8px 0; border-bottom: 1.5px solid var(--ink);
+}
+.carry td { width: 50%; padding: 11px 16px 11px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.carry td:first-child { color: var(--ink-2); }
+
+/* Skills as a challenge–response checklist */
+.checklist { list-style: none; padding: 0; max-width: 760px; }
+.checklist li { display: flex; align-items: baseline; gap: 12px; padding: 7px 0; }
+.checklist .ch {
+  flex: 1 1 auto; min-width: 0;
+  display: flex; align-items: baseline; gap: 12px;
+  color: var(--ink-2); white-space: nowrap;
+}
+.checklist .ch::after {
+  content: ""; flex: 1; min-width: 20px;
+  border-bottom: 2px dotted var(--rule);
+  border-bottom: 2px dotted color-mix(in srgb, var(--ink-2) 45%, transparent);
+  transform: translateY(-.3em);
+}
+.checklist .rs { flex: 0 1 auto; max-width: 62%; text-align: right; font-weight: 700; }
+@media (max-width: 599px) {
+  .checklist li { display: block; padding: 9px 0; border-bottom: 1px solid var(--rule); }
+  .checklist .ch { display: block; font-size: .875rem; white-space: normal; }
+  .checklist .ch::after { display: none; }
+  .checklist .rs { display: block; max-width: none; text-align: left; }
+}
+
+/* Certifications: same triangle symbols as the chart */
+.certs { list-style: none; padding: 0; max-width: 760px; display: grid; gap: 18px; }
+.cert { display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; gap: 2px 16px; align-items: start; }
+.cert .mark { width: 14px; height: 12px; margin-top: 6px; overflow: visible; }
+.cert strong { display: block; font-weight: 700; }
+.cert .sub { display: block; color: var(--ink-2); font-size: .9375rem; }
+.cert .when { display: flex; align-items: center; gap: 12px; color: var(--ink-2); font-size: .9375rem; white-space: nowrap; }
+.cert .when.now { color: var(--magenta); }
+.cert .badge { width: 40px; height: 40px; }
+@media (max-width: 599px) {
+  .cert { grid-template-columns: 16px minmax(0, 1fr); }
+  .cert .when { grid-column: 2; }
+}
+
+/* Projects */
+.projects { display: grid; gap: clamp(56px, 7vw, 80px); }
+.project .sub { margin-top: 4px; color: var(--ink-2); }
+.project h3 { font-size: 1.375rem; }
+.project .desc { margin-top: 14px; max-width: 62ch; }
+.project .practices { margin-top: 12px; padding-left: 1.15em; max-width: 62ch; }
+.project .practices li + li { margin-top: 4px; }
+.project .stack { margin-top: 14px; color: var(--ink-2); font-size: .9375rem; max-width: 62ch; }
+.project li::marker, .role li::marker { color: var(--ink-2); }
+.project-lead { display: grid; gap: 4px 44px; }
+@media (min-width: 1000px) {
+  .project-lead { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+  .project-lead .flow { grid-column: 2; grid-row: 1 / span 2; align-self: start; margin-top: 4px; }
+}
+.pair { display: grid; gap: clamp(56px, 7vw, 72px) 44px; }
+@media (min-width: 1000px) { .pair { grid-template-columns: 1fr 1fr; } }
+
+/* Architecture insets, drawn like chart insets */
+.flow {
+  container-type: inline-size;
+  margin-top: 18px; padding: 16px 18px 18px;
+  border: 1px solid var(--rule);
+  display: grid; gap: 14px;
+}
+.lane { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 12px; align-items: center; }
+.lane-name { font-size: .8125rem; color: var(--ink-2); }
+.hops {
+  list-style: none; padding: 0;
+  display: flex; align-items: center;
+  overflow-x: auto; scrollbar-width: thin;
+}
+.hops li {
+  flex: none; padding: 5px 9px;
+  border: 1.25px solid var(--ink); background: var(--paper);
+  font-size: .875rem; line-height: 1.3; white-space: nowrap;
+}
+.hops li + li { position: relative; margin-left: 30px; }
+.hops li + li::before {
+  content: ""; position: absolute; right: 100%; top: 50%;
+  width: 30px; height: 1.25px; margin-top: -.6px; background: var(--ink-2);
+}
+.hops li + li::after {
+  content: ""; position: absolute; right: calc(100% + 1px); top: 50%; margin-top: -4px;
+  border-style: solid; border-width: 4px 0 4px 7px;
+  border-color: transparent transparent transparent var(--ink-2);
+}
+@container (max-width: 440px) {
+  .lane { grid-template-columns: 1fr; gap: 6px; }
+  .hops li { font-size: .8125rem; padding: 4px 6px; }
+  .hops li + li { margin-left: 14px; }
+  .hops li + li::before { width: 14px; }
+}
+@media (max-width: 599px) {
+  .flow { padding: 12px; }
+}
+@container (max-width: 304px) {
+  .hops { flex-direction: column; align-items: flex-start; overflow: visible; }
+  .hops li + li { margin-left: 0; margin-top: 16px; }
+  .hops li + li::before { right: auto; top: auto; left: 12px; bottom: 100%; width: 1.25px; height: 16px; margin: 0; }
+  .hops li + li::after {
+    right: auto; top: auto; left: 8.4px; bottom: calc(100% + 1px); margin: 0;
+    border-width: 7px 4px 0; border-color: var(--ink-2) transparent transparent;
+  }
+}
+
+.counter { margin-top: 16px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.counter-label { color: var(--ink-2); font-size: .9375rem; }
+.counter-value { font-family: var(--mono); font-size: 1.5rem; line-height: 1.2; }
+.counter-note { margin-top: 2px; color: var(--ink-2); font-size: .875rem; }
+
+/* Experience and education */
+.role .when { color: var(--ink-2); font-size: .9375rem; }
+.role h3 { margin-top: 4px; font-size: 1.375rem; }
+.role .org { margin-top: 2px; }
+.role .facts { margin-top: 10px; color: var(--ink-2); max-width: 64ch; }
+.role ul { margin-top: 16px; padding-left: 1.15em; max-width: 64ch; }
+.role li + li { margin-top: 8px; }
+
+.edu { list-style: none; padding: 0; display: grid; gap: 18px; }
+.edu strong { display: block; }
+.edu span { display: block; color: var(--ink-2); }
+.edu .now { color: var(--magenta); }
+
+/* Footer */
+.foot { padding-block: 56px 72px; border-top: 1px solid var(--rule); }
+.quote { max-width: 32ch; font-size: clamp(1.25rem, 1rem + 1vw, 1.625rem); font-style: italic; line-height: 1.35; }
+.foot-links { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.colophon { margin-top: 20px; max-width: 72ch; color: var(--ink-2); font-size: .8125rem; }
+
+/* ---------- Print / Save as PDF ---------- */
+@media print {
+  :root:root {
+    --paper: #fff; --ink: #111a24; --ink-2: #4b5866; --rule: #d3d9d4;
+    --blue: #1e5aa8; --magenta: #a3246e;
+    color-scheme: light;
+  }
+  @page { size: letter; margin: 12mm 13mm; }
+  html { font-size: 11.5px; }
+  body { font-size: 1rem; line-height: 1.38; background: #fff; }
+  .hero::before, .hero-top, .actions, .legend, .counter, .counter-note, .skip { display: none !important; }
+  .hero { padding: 0; }
+  .contact-print { display: block; margin-top: 6px; font-size: 8.5pt; color: var(--ink-2); }
+  .hero h1 { margin-top: 0; font-size: 24pt; letter-spacing: -.02em; }
+  .lede { margin-top: 6px; font-size: 13pt; }
+  .intro { margin-top: 4px; font-size: 1.05rem; }
+  .chart { margin-top: 3mm; }
+  .route-h { display: block !important; width: 132mm; }
+  .route-v { display: none !important; }
+  .route *, .plane-body { animation: none !important; }
+  main { padding-top: 4mm; }
+  .block { grid-template-columns: 26mm minmax(0, 1fr); gap: 2mm 6mm; padding-bottom: 4mm; }
+  .block > h2 { font-size: 10.5pt; }
+  h3, .project h3, .role h3 { font-size: 10pt; }
+  .prose p { font-size: 1rem; line-height: 1.5; }
+  .carry { margin-top: 3mm; }
+  .carry h3 { margin-bottom: 1mm; font-size: 9pt; }
+  .carry table { font-size: .95rem; }
+  .carry th, .carry td { padding: 1.5px 10px 1.5px 0; }
+  .checklist li { padding: 1px 0; }
+  .certs { gap: 4px; }
+  .cert .badge { display: none; }
+  .projects { gap: 4mm; }
+  .project-lead, .pair { grid-template-columns: 1fr; gap: 5mm; }
+  .project-lead .flow { grid-column: auto; grid-row: auto; margin-top: 3mm; }
+  .project .desc, .project .practices, .project .stack { margin-top: 2mm; }
+  .flow { padding: 5px 10px; gap: 4px; margin-top: 1.5mm; }
+  .hops li { font-size: .9rem; padding: 1px 6px; }
+  .role .facts, .role ul { margin-top: 2mm; }
+  .role li + li { margin-top: .6mm; }
+  .edu { grid-template-columns: 1fr 1fr; gap: 3mm 6mm; }
+  .project-lead, .pair > .project, .cert, .checklist li, .carry tr, .lane, .role li { break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+  .foot { display: none; }
+}
+</style>
 </head>
 <body>
-    <div class="grain" aria-hidden="true"></div>
-    <div class="fun-intro-overlay" aria-hidden="true">
-        <div class="fun-intro-orb"></div>
-    </div>
-    <div class="sky" aria-hidden="true">
-        <div class="plane">
-            <span class="plane-banner">Clickable</span>
-            <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
-        </div>
-    </div>
-    <a class="skip-link" href="#main">Skip to content</a>
- 
-    <header role="banner" class="hero">
-        <div class="hero-inner">
-            <p class="callsign"><span class="blip"></span>The best time to plant a tree was 20 years ago. The second best time is now</p>
-            <h1>Jessica Paradise</h1>
-            <p class="tagline"><span class="cursor" aria-hidden="true">|</span></p>
-            <div class="hero-links">
-                <a href="mailto:jessica.paradise@pm.me" aria-label="Email">jessica.paradise@pm.me</a>
-                <span class="sep" aria-hidden="true">✦</span>
-                <a href="https://linkedin.com/in/jessica-paradise" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
-                <span class="sep" aria-hidden="true">✦</span>
-                <a href="https://github.com/jessicaparadise" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
-                <span class="sep" aria-hidden="true">✦</span>
-                <span class="location">Austin, TX</span>
-            </div>
-            <div class="theme-switch" role="group" aria-label="Color theme">
-                <button type="button" class="theme-btn" data-set-theme="dark">Dark</button>
-                <button type="button" class="theme-btn" data-set-theme="light">Light</button>
-                <button type="button" class="theme-btn" data-set-theme="fun">Interactive</button>
-            </div>
-        </div>
-    </header>
- 
-<main id="main">
- 
-    <section id="summary" class="reveal" aria-labelledby="summary-heading">
-        <h2 id="summary-heading"><span class="section-num">01</span> Summary</h2>
-        <p>Aspiring Cloud Architect with 11+ years in mission-critical aviation operations, now building hands-on AWS infrastructure and DevOps pipelines. AWS Certified Solutions Architect – Associate, currently completing a B.S. in Computer Science. Designing and deploying real serverless, IoT, and data-streaming projects on AWS using Terraform for infrastructure-as-code and GitHub Actions CI/CD for automated, secure deployments. Brings a disciplined operational background — structured fault isolation, strict SOPs, and risk management — to building reliable cloud systems.</p>
-    </section>
- 
-    <section id="skills" class="reveal" aria-labelledby="skills-heading">
-        <h2 id="skills-heading"><span class="section-num">02</span> Technical Skills</h2>
-         
-        <div class="skill-group">
-            <h3>Cloud & Serverless (AWS)</h3>
-            <div class="tags">
-                <span class="tag">Lambda</span><span class="tag">S3</span><span class="tag">DynamoDB</span><span class="tag">API Gateway</span>
-                <span class="tag">Kinesis</span><span class="tag">IoT Core</span><span class="tag">SNS</span>
-                <span class="tag">SQS</span><span class="tag">IAM</span>
-                <span class="tag">VPC</span><span class="tag">Route 53C</span><span class="tag">CloudFront</span>
-                <span class="tag">CloudWatch</span>
-            </div>
-        </div>
-        <div class="skill-group">
-            <h3>DevOps & Automation</h3>
-            <div class="tags">
-                <span class="tag accent">Terraform (Infrastructure as Code)</span><span class="tag accent">GitHub Actions CI/CD (OIDC)</span>
-                <span class="tag accent">Git</span><span class="tag accent">Vercel</span>
-            </div>
-        </div>
-        <div class="skill-group">
-            <h3>Software & Hardware Systems</h3>
-            <div class="tags">
-                <span class="tag hw">ESP32 Microcontrollers</span><span class="tag hw">KiCad (PCB Design)</span><span class="tag hw">Sensor/Audio Integration</span>
-                <span class="tag hw">Python</span><span class="tag hw">JavaScript</span>
-            </div>
-        </div>
-    </section>
+<a class="skip" href="#main">Skip to content</a>
 
-    <section id="certifications" class="reveal" aria-labelledby="certifications-heading">
-        <h2 id="certifications-heading"><span class="section-num">03</span> Certifications</h2>
-        <div class="skill-group">
-            <div class="tags">
-                <ul>
-                    <li><span class="tag cert">AWS Certified Solutions Architect – Associate (Active)</span>
-                        <img src="aws.png" alt="AWS SAA Badge" width="40"></li>
-                    <li><span class="tag cert">AWS Certified Developer – Associate (Scheduled 07/31/2026)</span></li>
-                </ul>
-            </div>
-        </div>
-    </section>
- 
-    <section id="projects" class="reveal" aria-labelledby="projects-heading">
-        <h2 id="projects-heading"><span class="section-num">04</span> Cloud & Systems Projects</h2>
- 
-        <div class="project-card" tabindex="0">
-            <div class="project-icon">🛫</div>
-            <div class="project-body">
-                <h3>Mission ATLAS<span class="badge">Real-Time Aircraft Telemetry Platform</span></h3>
-                <p>Built a streaming data platform ingesting live ADS-B aircraft telemetry through AWS Kinesis, provisioned entirely with Terraform. Secured CI/CD with GitHub Actions using OIDC (keyless auth), with S3 remote state and AWS Budgets cost guardrails. Documented architecture decisions in ADRs.</p>
-                <div class="project-stack"><span>Kinesis</span><span>Terraform</span><span>GitHub Actions (OIDC)</span><span>S3</span><span>Lambda</span><span>IAM</span></div>
-            </div>
-        </div>
+<header class="hero wrap">
+  <div class="hero-top">
+    <div class="theme" role="group" aria-label="Color theme">
+      <button type="button" data-set-theme="light" aria-pressed="false">Day</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Night</button>
+    </div>
+  </div>
 
-        <div class="project-card" tabindex="0">
-            <div class="project-icon">🌡️</div>
-            <div class="project-body">
-                <h3>IoT Environmental Monitor<span class="badge">Edge-to-Cloud</span></h3>
-                <p>Built multiple edge-to-cloud systems streaming live sensor data via AWS IoT Core to Lambda and DynamoDB, with SNS alerting and real-time dashboards.</p>
-                <div class="project-stack"><span>IoT Core</span><span>ESP32</span><span>SNS</span><span>API Gateway</span></div>
-            </div>
+  <h1>Jessica Paradise</h1>
+  <p class="lede">Eleven years flying through clouds.<br> Now I build them.</p>
+  <p class="intro">AWS Certified Solutions Architect and ATP-rated jet captain in Austin, Texas.</p>
+  <p class="contact-print">jessica.paradise@pm.me &nbsp;|&nbsp; github.com/jessicaparadise &nbsp;|&nbsp; linkedin.com/in/jessica-paradise &nbsp;|&nbsp; jessicaparadise.com</p>
+
+  <div class="actions">
+    <a class="btn" href="mailto:jessica.paradise@pm.me">Email me</a>
+    <a href="https://github.com/jessicaparadise" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.linkedin.com/in/jessica-paradise" target="_blank" rel="noopener">LinkedIn</a>
+    <button type="button" class="linkish" id="save-pdf">Save as PDF</button>
+  </div>
+
+  <figure class="chart">
+    <svg class="route route-h" viewBox="0 0 1020 330" aria-hidden="true" focusable="false"><path class="leg done draw" pathLength="1" style="--d:.15s" d="M16 220L400 118"/><path class="leg active draw dva-pending" pathLength="1" style="--d:.8s" d="M400 118L600 196"/><path class="leg done draw dva-passed" pathLength="1" style="--d:.8s" d="M400 118L600 196"/><path class="leg ahead fade dva-pending" style="--d:1.3s" d="M600 196L780 104"/><path class="leg active draw dva-passed" pathLength="1" style="--d:1.3s" d="M600 196L780 104"/><path class="leg ahead fade" style="--d:1.7s" d="M780 104L940 196"/><g class="mile fade" style="--d:0.45s"><rect x="177.9" y="158.5" width="60.2" height="21" rx="1"/><text x="208" y="173.4" text-anchor="middle">11+ yrs</text></g><g class="apt pop" style="--d:0.05s"><path class="svc" d="M16 208.8L16 204.5M27.2 220L31.5 220M16 231.2L16 235.5M4.8 220L0.5 220"/><circle class="ring" cx="16" cy="220" r="10"/><path class="rwy" d="M10.7 223.7L21.3 216.3"/></g><polygon class="wp done pop" style="--d:.7s" points="400,108.8 392,122.6 408,122.6"/><polygon class="wp open pop dva-pending" style="--d:1.2s" points="600,186.8 592,200.6 608,200.6"/><polygon class="wp done pop dva-passed" style="--d:1.2s" points="600,186.8 592,200.6 608,200.6"/><polygon class="wp open pop" style="--d:1.55s" points="780,94.8 772,108.6 788,108.6"/><g class="rose pop" style="--d:1.8s"><circle class="ring" cx="940" cy="196" r="52"/><path class="ticks" d="M950.6 150.2L951.7 145.3M958.4 152.7L960.3 148.1M963.4 159.9L968.3 152.4M972.1 161.6L975.5 158M977.5 167.7L981.5 164.7M978.3 176.5L986.3 172.4M984.9 182.3L989.7 180.8M986.6 190.3L991.6 189.7M982.9 198.3L991.9 198.7M985.8 206.6L990.7 207.7M983.3 214.4L987.9 216.3M976.1 219.4L983.6 224.3M974.4 228.1L978 231.5M968.3 233.5L971.3 237.5M959.5 234.3L963.6 242.3M953.7 240.9L955.2 245.7M945.7 242.6L946.3 247.6M937.7 238.9L937.3 247.9M929.4 241.8L928.3 246.7M921.6 239.3L919.7 243.9M916.6 232.1L911.7 239.6M907.9 230.4L904.5 234M902.5 224.3L898.5 227.3M901.7 215.5L893.7 219.6M895.1 209.7L890.3 211.2M893.4 201.7L888.4 202.3M897.1 193.7L888.1 193.3M894.2 185.4L889.3 184.3M896.7 177.6L892.1 175.7M903.9 172.6L896.4 167.7M905.6 163.9L902 160.5M911.7 158.5L908.7 154.5M920.5 157.7L916.4 149.7M926.3 151.1L924.8 146.3M934.3 149.4L933.7 144.4M942.3 153.1L943.2 135.1"/><polygon class="arrow" points="943.6,128.1 938.6,135.8 947.6,136.3"/><polygon class="hex" points="948,196 944,202.9 936,202.9 932,196 936,189.1 944,189.1"/><circle class="dot" cx="940" cy="196" r="1.7"/></g><g class="navbox fade" style="--d:1.9s"><rect class="frame" x="872.1" y="264" width="135.8" height="48" rx="2"/><text class="nav-name" x="882.1" y="283">CLOUD ARCHITECT</text><text class="nav-id" x="882.1" y="301">CLD</text><g class="morse"><rect x="914.5" y="295.2" width="8" height="2.6"/><rect x="924.9" y="295.2" width="2.6" height="2.6"/><rect x="929.9" y="295.2" width="8" height="2.6"/><rect x="940.3" y="295.2" width="2.6" height="2.6"/><rect x="949.9" y="295.2" width="2.6" height="2.6"/><rect x="954.9" y="295.2" width="8" height="2.6"/><rect x="965.3" y="295.2" width="2.6" height="2.6"/><rect x="970.3" y="295.2" width="2.6" height="2.6"/><rect x="979.9" y="295.2" width="8" height="2.6"/><rect x="990.3" y="295.2" width="2.6" height="2.6"/><rect x="995.3" y="295.2" width="2.6" height="2.6"/></g></g><g class="fade" style="--d:0.1s" text-anchor="start"><text class="t-name" x="0" y="258">Jet captain</text><text class="t-detail" x="0" y="277">2014 – present</text></g><g class="fade" style="--d:0.75s" text-anchor="middle"><text class="t-name" x="400" y="78">AWS Solutions Architect</text><text class="t-detail" x="400" y="97">Associate, certified 2026</text></g><g class="fade" style="--d:1.25s" text-anchor="middle"><text class="t-name" x="600" y="222">AWS Developer</text><text class="t-detail t-now dva-pending" x="600" y="241">Associate, in progress</text><text class="t-detail dva-passed" x="600" y="241">Associate, certified 2026</text></g><g class="fade" style="--d:1.6s" text-anchor="middle"><text class="t-name" x="780" y="64">B.S. Computer Science</text><text class="t-detail" x="780" y="83">WGU, expected Aug 2027</text></g><g class="plane dva-pending" transform="translate(500 157) rotate(111.3)"><circle r="20" fill="transparent"/><g class="plane-body glide" style="--d:1.1s"><path transform="scale(1.4) translate(-11.5 -12)" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></g></g><g class="plane dva-passed" transform="translate(699 145.4) rotate(62.9)"><circle r="20" fill="transparent"/><g class="plane-body glide" style="--d:1.55s"><path transform="scale(1.4) translate(-11.5 -12)" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></g></g></svg>
+    <svg class="route route-v" viewBox="0 0 360 500" aria-hidden="true" focusable="false"><path class="leg done draw" pathLength="1" style="--d:.15s" d="M22 34L84 134"/><path class="leg active draw dva-pending" pathLength="1" style="--d:.8s" d="M84 134L32 232"/><path class="leg done draw dva-passed" pathLength="1" style="--d:.8s" d="M84 134L32 232"/><path class="leg ahead fade dva-pending" style="--d:1.3s" d="M32 232L86 330"/><path class="leg active draw dva-passed" pathLength="1" style="--d:1.3s" d="M32 232L86 330"/><path class="leg ahead fade" style="--d:1.7s" d="M86 330L58 432"/><g class="mile fade" style="--d:0.45s"><rect x="22.9" y="73.5" width="60.2" height="21" rx="1"/><text x="53" y="88.4" text-anchor="middle">11+ yrs</text></g><g class="apt pop" style="--d:0.05s"><path class="svc" d="M22 23.8L22 19.5M32.2 34L36.5 34M22 44.2L22 48.5M11.8 34L7.5 34"/><circle class="ring" cx="22" cy="34" r="9"/><path class="rwy" d="M17.5 37.2L26.5 30.8"/></g><polygon class="wp done pop" style="--d:.7s" points="84,125.3 76.5,138.3 91.5,138.3"/><polygon class="wp open pop dva-pending" style="--d:1.2s" points="32,223.3 24.5,236.3 39.5,236.3"/><polygon class="wp done pop dva-passed" style="--d:1.2s" points="32,223.3 24.5,236.3 39.5,236.3"/><polygon class="wp open pop" style="--d:1.55s" points="86,321.3 78.5,334.3 93.5,334.3"/><g class="rose pop" style="--d:1.8s"><circle class="ring" cx="58" cy="432" r="44"/><path class="ticks" d="M66.8 394L67.9 389.1M73.2 396.1L75.2 391.5M77.1 402.6L82 395.1M84.6 403.5L88 399.8M89.1 408.5L93.1 405.5M89.2 416.1L97.2 412M95.3 420.6L100.1 419.1M96.7 427.2L101.7 426.6M93 433.8L101.9 434.3M96 440.8L100.9 441.9M93.9 447.2L98.5 449.2M87.4 451.1L94.9 456M86.5 458.6L90.2 462M81.5 463.1L84.5 467.1M73.9 463.2L78 471.2M69.4 469.3L70.9 474.1M62.8 470.7L63.4 475.7M56.2 467L55.7 475.9M49.2 470L48.1 474.9M42.8 467.9L40.8 472.5M38.9 461.4L34 468.9M31.4 460.5L28 464.2M26.9 455.5L22.9 458.5M26.8 447.9L18.8 452M20.7 443.4L15.9 444.9M19.3 436.8L14.3 437.4M23 430.2L14.1 429.7M20 423.2L15.1 422.1M22.1 416.8L17.5 414.8M28.6 412.9L21.1 408M29.5 405.4L25.8 402M34.5 400.9L31.5 396.9M42.1 400.8L38 392.8M46.6 394.7L45.1 389.9M53.2 393.3L52.6 388.3M59.8 397L60.8 379.1"/><polygon class="arrow" points="61.1,372.1 56.2,379.8 65.2,380.3"/><polygon class="hex" points="65,432 61.5,438.1 54.5,438.1 51,432 54.5,425.9 61.5,425.9"/><circle class="dot" cx="58" cy="432" r="1.7"/></g><g class="navbox fade" style="--d:1.9s"><rect class="frame" x="120" y="408" width="135.8" height="48" rx="2"/><text class="nav-name" x="130" y="427">CLOUD ARCHITECT</text><text class="nav-id" x="130" y="445">CLD</text><g class="morse"><rect x="162.4" y="439.2" width="8" height="2.6"/><rect x="172.8" y="439.2" width="2.6" height="2.6"/><rect x="177.8" y="439.2" width="8" height="2.6"/><rect x="188.2" y="439.2" width="2.6" height="2.6"/><rect x="197.8" y="439.2" width="2.6" height="2.6"/><rect x="202.8" y="439.2" width="8" height="2.6"/><rect x="213.2" y="439.2" width="2.6" height="2.6"/><rect x="218.2" y="439.2" width="2.6" height="2.6"/><rect x="227.8" y="439.2" width="8" height="2.6"/><rect x="238.2" y="439.2" width="2.6" height="2.6"/><rect x="243.2" y="439.2" width="2.6" height="2.6"/></g></g><g class="fade" style="--d:0.1s" text-anchor="start"><text class="t-name" x="48" y="32">Jet captain</text><text class="t-detail" x="48" y="50">2014 – present</text></g><g class="fade" style="--d:0.75s" text-anchor="start"><text class="t-name" x="108" y="131">AWS Solutions Architect</text><text class="t-detail" x="108" y="149">Associate, certified 2026</text></g><g class="fade" style="--d:1.25s" text-anchor="start"><text class="t-name" x="56" y="229">AWS Developer</text><text class="t-detail t-now dva-pending" x="56" y="247">Associate, in progress</text><text class="t-detail dva-passed" x="56" y="247">Associate, certified 2026</text></g><g class="fade" style="--d:1.6s" text-anchor="start"><text class="t-name" x="110" y="327">B.S. Computer Science</text><text class="t-detail" x="110" y="345">WGU, expected Aug 2027</text></g><g class="plane dva-pending" transform="translate(58 183) rotate(-152)"><circle r="20" fill="transparent"/><g class="plane-body glide" style="--d:1.1s"><path transform="scale(1.25) translate(-11.5 -12)" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></g></g><g class="plane dva-passed" transform="translate(61.7 285.9) rotate(151.1)"><circle r="20" fill="transparent"/><g class="plane-body glide" style="--d:1.55s"><path transform="scale(1.25) translate(-11.5 -12)" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></g></g></svg>
+    <figcaption>
+      <span class="sr-only">Career route, from the flight deck to cloud architecture:</span>
+      <ol class="sr-only">
+        <li>Jet captain, 2014 to present.</li>
+        <li>AWS Certified Solutions Architect – Associate, 2026.</li>
+        <li class="dva-pending">AWS Certified Developer – Associate, in progress. This is the current leg.</li>
+        <li class="dva-passed">AWS Certified Developer – Associate, 2026.</li>
+        <li>B.S. Computer Science at WGU, expected August 2027.</li>
+        <li>Destination: cloud architect.</li>
+      </ol>
+      <div class="legend" aria-hidden="true">
+        <span><svg class="m" viewBox="-7.5 -8.5 15 13" aria-hidden="true"><polygon class="wp done" points="0,-6.9 -6,3.5 6,3.5"/></svg>Completed</span>
+        <span><svg class="m" viewBox="-7.5 -8.5 15 13" aria-hidden="true"><polygon class="wp open" points="0,-6.9 -6,3.5 6,3.5"/></svg>Ahead</span>
+        <span><svg class="line" viewBox="0 0 24 8"><path class="leg active" d="M2 4H22"/></svg>Current leg</span>
+      </div>
+    </figcaption>
+  </figure>
+</header>
+
+<main id="main" class="wrap">
+
+  <section id="about" class="block" aria-labelledby="about-h">
+    <h2 id="about-h">About</h2>
+    <div>
+      <div class="prose">
+        <p>I’m an AWS Certified Solutions Architect with more than 11 years in mission-critical aviation. Today I build hands-on AWS infrastructure and DevOps pipelines: serverless, IoT and data-streaming systems, provisioned with Terraform and shipped through GitHub Actions CI/CD. I’m finishing a B.S. in Computer Science at WGU, expected August 2027.</p>
+        <p>Aviation trained me in structured fault isolation, strict SOPs and risk management. I bring that same discipline to building reliable cloud systems.</p>
+      </div>
+      <div class="carry">
+        <h3>What carries over</h3>
+        <table>
+          <thead><tr><th scope="col">On the flight deck</th><th scope="col">In the cloud</th></tr></thead>
+          <tbody>
+            <tr><td>Structured fault isolation under pressure</td><td>Debugging and incident response</td></tr>
+            <tr><td>Checklists and strict SOPs</td><td>Runbooks and infrastructure as code</td></tr>
+            <tr><td>Risk management</td><td>Security and cost guardrails</td></tr>
+            <tr><td>Coordinating dispatch, maintenance, ATC and crew</td><td>Working across teams to ship</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="block" aria-labelledby="skills-h">
+    <h2 id="skills-h">Skills</h2>
+    <ul class="checklist">
+      <li><span class="ch">Compute and APIs</span><span class="rs">Lambda, API Gateway</span></li>
+      <li><span class="ch">Storage and databases</span><span class="rs">S3, DynamoDB</span></li>
+      <li><span class="ch">Streaming and messaging</span><span class="rs">Kinesis, SQS, SNS</span></li>
+      <li><span class="ch">IoT</span><span class="rs">AWS IoT Core, ESP32</span></li>
+      <li><span class="ch">Networking and delivery</span><span class="rs">VPC, Route 53, CloudFront</span></li>
+      <li><span class="ch">Security and identity</span><span class="rs">IAM, OIDC federation</span></li>
+      <li><span class="ch">Monitoring and cost</span><span class="rs">CloudWatch, AWS Budgets</span></li>
+      <li><span class="ch">Infrastructure as code</span><span class="rs">Terraform, S3 remote state</span></li>
+      <li><span class="ch">CI/CD</span><span class="rs">GitHub Actions, Git, Vercel</span></li>
+      <li><span class="ch">Languages</span><span class="rs">Python, JavaScript</span></li>
+      <li><span class="ch">Hardware</span><span class="rs">KiCad PCB design, sensor and audio integration</span></li>
+    </ul>
+  </section>
+
+  <section id="certifications" class="block" aria-labelledby="certs-h">
+    <h2 id="certs-h">Certifications</h2>
+    <ul class="certs">
+      <li class="cert">
+        <svg class="mark" viewBox="-7.5 -8.5 15 13" aria-hidden="true"><polygon class="wp done" points="0,-6.9 -6,3.5 6,3.5"/></svg>
+        <div><strong>AWS Certified Solutions Architect – Associate</strong><span class="sub">SAA-C03</span></div>
+        <span class="when"><img class="badge" src="aws.png" alt="" width="40" height="40" onerror="this.remove()">2026</span>
+      </li>
+      <li class="cert dva-pending">
+        <svg class="mark" viewBox="-7.5 -8.5 15 13" aria-hidden="true"><polygon class="wp open" points="0,-6.9 -6,3.5 6,3.5"/></svg>
+        <div><strong>AWS Certified Developer – Associate</strong><span class="sub">DVA-C02</span></div>
+        <span class="when now">In progress</span>
+      </li>
+      <li class="cert dva-passed">
+        <svg class="mark" viewBox="-7.5 -8.5 15 13" aria-hidden="true"><polygon class="wp done" points="0,-6.9 -6,3.5 6,3.5"/></svg>
+        <div><strong>AWS Certified Developer – Associate</strong><span class="sub">DVA-C02</span></div>
+        <span class="when">2026</span>
+      </li>
+      <li class="cert">
+        <svg class="mark" viewBox="-7.5 -8.5 15 13" aria-hidden="true"><polygon class="wp done" points="0,-6.9 -6,3.5 6,3.5"/></svg>
+        <div><strong>ITIL 4 Foundation</strong><span class="sub">IT service management</span></div>
+        <span class="when">2026</span>
+      </li>
+      <li class="cert">
+        <svg class="mark" viewBox="-7.5 -8.5 15 13" aria-hidden="true"><polygon class="wp done" points="0,-6.9 -6,3.5 6,3.5"/></svg>
+        <div><strong>FAA Airline Transport Pilot</strong><span class="sub">Also a Certified Flight Instructor</span></div>
+        <span class="when"></span>
+      </li>
+    </ul>
+  </section>
+
+  <section id="projects" class="block" aria-labelledby="projects-h">
+    <h2 id="projects-h">Projects</h2>
+    <div class="projects">
+
+      <article class="project project-lead">
+        <div>
+          <h3>Mission ATLAS</h3>
+          <p class="sub">My flagship project: a real-time aircraft telemetry platform.</p>
+          <p class="desc">Ingests live ADS-B aircraft telemetry through Amazon Kinesis, with every resource provisioned in Terraform. GitHub Actions deploys it through OIDC, so the pipeline stores no AWS access keys.</p>
+          <ul class="practices">
+            <li>Terraform remote state in S3</li>
+            <li>AWS Budgets cost guardrails</li>
+            <li>Architecture decisions documented as ADRs</li>
+          </ul>
+          <p class="stack">Built with Kinesis, Lambda, S3, IAM, Terraform and GitHub Actions.</p>
         </div>
-         
-        <div class="project-card" tabindex="0">
-            <div class="project-icon">📡</div>
-            <div class="project-body">
-                <h3>IoT News Sentiment & Environment Monitors <span class="badge">Systems Integration</span></h3>
-                <p>Built multiple edge-to-cloud architectures streaming live environmental data via AWS IoT Core to Lambda and DynamoDB, featuring active alert systems (SNS) and real-time visual dashboards.</p>
-                <div class="project-stack"><span>IoT Core</span><span>ESP32</span><span>Lambda</span><span>API Gateway</span><span>DynamoDB</span><span>SNS</span></div>
-            </div>
+        <div class="flow">
+          <div class="lane"><span class="lane-name">Stream</span><ol class="hops" aria-label="Stream path"><li>ADS-B telemetry</li><li>Kinesis</li><li>Lambda</li></ol></div>
+          <div class="lane"><span class="lane-name">Deploy</span><ol class="hops" aria-label="Deploy path"><li>GitHub Actions</li><li>OIDC role</li><li>Terraform</li></ol></div>
         </div>
- 
-        <div class="project-card" tabindex="0">
-            <div class="project-icon">☁️</div>
-            <div class="project-body">
-                <h3>Serverless Cloud Resume <span class="badge">DevOps Engineer</span></h3>
-                <p>Architected a highly available, globally distributed static web application using AWS S3, CloudFront, and Route 53. Implemented a serverless visitor-counter API via Lambda and DynamoDB, securing the entire lifecycle with an automated GitHub Actions CI/CD pipeline.</p>
-                <div class="project-stack"><span>S3</span><span>CloudFront</span><span>Lambda</span><span>DynamoDB</span><span>GitHub Actions</span></div>
-            </div>
-        </div>
-    </section>
- 
-    <section id="experience" class="reveal" aria-labelledby="experience-heading">
-        <h2 id="experience-heading"><span class="section-num">05</span> Operational & Technical Leadership</h2>
- 
-        <div class="timeline">
-            <div class="timeline-entry">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <div class="timeline-header">
-                        <h3>Airline , Cargo & Business Aviation Captain / First Officer</h3>
-                        <span class="timeline-date">Jan 2014 – Present</span>
-                    </div>
-                    <h4 style="margin: 0.5rem 0; font-family: 'DM Mono', monospace; font-size: 0.9rem; color: var(--text-muted);">Captain / First Officer / Systems Commander</h4>
-                    <ul>
-                        <li>Held command authority over multi-million-dollar aircraft and crew, maintaining full compliance with strict FAA regulatory standards across domestic and international operations.</li>
-                        <li>Diagnosed and resolved electronic, mechanical, and systems failures in real time under high-pressure conditions, using structured fault-isolation procedures where errors carry no margin.</li>
-                        <li>Coordinated across dispatch, maintenance, ATC, and crew under tight time constraints and rapidly changing conditions — keeping complex operations on schedule and safe.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
- 
-    <section id="education" class="reveal" aria-labelledby="education-heading">
-        <h2 id="education-heading"><span class="section-num">06</span> Education</h2>
-        <div class="edu-card">
-            <strong>B.S. Computer Science</strong>
-            <span>Western Governors University</span>
-            <em>Expected Aug 2027</em>
-        </div>
-        <div class="edu-card">
-            <strong>B.S. Aeronautical Science</strong>
-            <span>Green River College</span>
-        </div>
-    </section>
- 
+      </article>
+
+      <div class="pair">
+        <article class="project">
+          <h3>IoT edge-to-cloud monitors</h3>
+          <p class="sub">Environmental and news-sentiment builds on ESP32 hardware.</p>
+          <div class="flow">
+            <div class="lane"><span class="lane-name">Data</span><ol class="hops" aria-label="Data path"><li>ESP32</li><li>IoT Core</li><li>Lambda</li><li>DynamoDB</li></ol></div>
+            <div class="lane"><span class="lane-name">Alerts</span><ol class="hops" aria-label="Alert path"><li>Lambda</li><li>SNS</li></ol></div>
+          </div>
+          <p class="desc">Several edge-to-cloud builds that stream live sensor data from ESP32 devices through AWS IoT Core to Lambda and DynamoDB, with SNS alerts and real-time dashboards.</p>
+          <p class="stack">Built with ESP32, AWS IoT Core, Lambda, DynamoDB, SNS and API Gateway.</p>
+        </article>
+
+        <article class="project">
+          <h3>Serverless cloud resume</h3>
+          <p class="sub">The site you’re reading.</p>
+          <div class="flow">
+            <div class="lane"><span class="lane-name">Site</span><ol class="hops" aria-label="Site path"><li>Route 53</li><li>CloudFront</li><li>S3</li></ol></div>
+            <div class="lane"><span class="lane-name">Counter</span><ol class="hops" aria-label="Counter path"><li>API Gateway</li><li>Lambda</li><li>DynamoDB</li></ol></div>
+            <div class="lane"><span class="lane-name">Deploy</span><ol class="hops" aria-label="Deploy path"><li>GitHub Actions</li><li>S3</li></ol></div>
+          </div>
+          <p class="desc">A globally distributed static site on S3, CloudFront and Route 53, with a serverless visitor-counter API. Every change ships through a GitHub Actions pipeline.</p>
+          <p class="counter"><span class="counter-label">Visitors so far</span><span class="counter-value" id="visitor-count">Counting…</span></p>
+          <p class="counter-note" id="visitor-note">Counted live by API Gateway, Lambda and DynamoDB when this page loaded.</p>
+          <p class="stack">Built with S3, CloudFront, Route 53, API Gateway, Lambda, DynamoDB and GitHub Actions.</p>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="experience" class="block" aria-labelledby="experience-h">
+    <h2 id="experience-h">Experience</h2>
+    <article class="role">
+      <p class="when">Jan 2014 – present</p>
+      <h3>Captain and First Officer</h3>
+      <p class="org">Airline, cargo and business aviation</p>
+      <p class="facts">FAA ATP certificate. Single-pilot jet captain on the Embraer Phenom 300.</p>
+      <ul>
+        <li>Held command authority over multi-million-dollar aircraft and crew, in full compliance with strict FAA regulatory standards across domestic and international operations.</li>
+        <li>Diagnosed and resolved electronic, mechanical and systems failures in real time under high pressure, using structured fault-isolation procedures where errors carry no margin.</li>
+        <li>Coordinated dispatch, maintenance, ATC and crew under tight time constraints and rapidly changing conditions, keeping complex operations safe and on schedule.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section id="education" class="block" aria-labelledby="education-h">
+    <h2 id="education-h">Education</h2>
+    <ul class="edu">
+      <li><strong>B.S. Computer Science</strong><span>Western Governors University</span><span class="now">Expected August 2027</span></li>
+      <li><strong>B.S. Aeronautical Science</strong><span>Green River College</span></li>
+    </ul>
+  </section>
+
 </main>
- 
-<footer role="contentinfo">
-    <div class="footer-inner">
-        <small>&copy; <span id="year"></span> Jessica Paradise</small>
-        <p class="visitor">Visitors: <span class="counter-number">Loading...</span></p>
+
+<footer class="foot wrap">
+  <p class="quote">The best time to plant a tree was 20 years ago. The second best time is now.</p>
+  <p class="foot-links">
+    <a href="mailto:jessica.paradise@pm.me">jessica.paradise@pm.me</a>
+    <a href="https://github.com/jessicaparadise" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.linkedin.com/in/jessica-paradise" target="_blank" rel="noopener">LinkedIn</a>
+  </p>
+  <p class="colophon">© <span id="year">2026</span> Jessica Paradise. Hosted on S3 and CloudFront, deployed with GitHub Actions. Set in B612, the typeface designed for Airbus cockpit displays.</p>
 </footer>
- 
+
 <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+(function () {
+  var root = document.documentElement;
 
-    // Theme switcher — Dark / Light / Fun
-    const themeButtons = document.querySelectorAll('[data-set-theme]');
-    let activeTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-
-    function applyTheme(theme) {
-        const prev = activeTheme;
-        activeTheme = theme;
-        document.documentElement.setAttribute('data-theme', theme);
-        try { localStorage.setItem('theme', theme); } catch (e) {}
-        themeButtons.forEach(btn =>
-            btn.setAttribute('aria-pressed', String(btn.dataset.setTheme === theme))
-        );
-        if (theme === 'fun' && prev !== 'fun') runFunIntro();
-    }
-
-    function endFunIntro() {
-        const html = document.documentElement;
-        if (!html.classList.contains('is-fun-intro')) return;
-        html.classList.remove('is-fun-intro');
-        const items = [
-            document.querySelector('.hero-inner'),
-            ...document.querySelectorAll('.reveal.visible')
-        ].filter(Boolean);
-        items.forEach((el, i) => {
-            el.style.animationDelay = (i * 90) + 'ms';
-            el.classList.add('fun-spill');
-            el.addEventListener('animationend', () => {
-                el.classList.remove('fun-spill');
-                el.style.animationDelay = '';
-            }, { once: true });
-        });
-    }
-
-    function runFunIntro() {
-        document.documentElement.classList.add('is-fun-intro');
-        setTimeout(endFunIntro, 1800);
-    }
-
-    document.addEventListener('visibilitychange', () => {
-        if (!document.hidden) endFunIntro();
+  // Day / Night. No saved choice = follow the system setting.
+  var buttons = document.querySelectorAll('[data-set-theme]');
+  var system = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  function currentTheme() {
+    return root.getAttribute('data-theme') || (system && system.matches ? 'dark' : 'light');
+  }
+  function syncButtons() {
+    var theme = currentTheme();
+    buttons.forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-set-theme') === theme));
     });
-    window.addEventListener('pageshow', endFunIntro);
-
-    themeButtons.forEach(btn =>
-        btn.addEventListener('click', () => applyTheme(btn.dataset.setTheme))
-    );
-    applyTheme(activeTheme);
-
-    const counter = document.querySelector(".counter-number");
-    async function updateCounter() {
-        try {
-            let response = await fetch("https://57draatqxi.execute-api.us-east-2.amazonaws.com/default/VisitorCount");
-            let data = await response.json();
-            counter.innerHTML = `${data}`;
-        } catch (error) {
-            counter.innerHTML = "—";
-            console.error("Counter failed:", error);
-        }
-    }
-    updateCounter();
- 
-    const reveals = document.querySelectorAll('.reveal');
-    if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.08 });
-        reveals.forEach(el => observer.observe(el));
-    } else {
-        reveals.forEach(el => el.classList.add('visible'));
-    }
-
-    // ── FUN MODE INTERACTIVITY ──────────────────────────────────────────────
-
-    function isFun() { return document.documentElement.getAttribute('data-theme') === 'fun'; }
-    const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    let lastTrail = 0;
-    document.addEventListener('mousemove', (e) => {
-        if (!isFun() || prefersReducedMotion()) return;
-        const now = Date.now();
-        if (now - lastTrail < 40) return;
-        lastTrail = now;
-        const dot = document.createElement('div');
-        dot.className = 'fun-trail-dot';
-        dot.style.left = e.clientX + 'px';
-        dot.style.top  = e.clientY + 'px';
-        const colors = ['#FBA0E3','#c882ff','#ff9de6','#e0aaff'];
-        dot.style.background = colors[Math.floor(Math.random() * colors.length)];
-        dot.style.width  = (4 + Math.random() * 4) + 'px';
-        dot.style.height = dot.style.width;
-        document.body.appendChild(dot);
-        dot.addEventListener('animationend', () => dot.remove());
+  }
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var theme = b.getAttribute('data-set-theme');
+      root.setAttribute('data-theme', theme);
+      try { localStorage.setItem('chart-theme', theme); } catch (e) {}
+      syncButtons();
     });
+  });
+  if (system && system.addEventListener) system.addEventListener('change', syncButtons);
+  syncButtons();
 
-    document.addEventListener('click', (e) => {
-        if (!isFun() || prefersReducedMotion()) return;
-        if (e.target.closest('.theme-btn, .plane, a, button')) return;
-        const colors = ['#FBA0E3','#c882ff','#fff0fc','#e0aaff','#ff9de6'];
-        for (let i = 0; i < 10; i++) {
-            const spark = document.createElement('div');
-            spark.className = 'fun-spark';
-            spark.style.left = e.clientX + 'px';
-            spark.style.top  = e.clientY + 'px';
-            spark.style.background = colors[Math.floor(Math.random() * colors.length)];
-            const angle = (Math.PI * 2 * i) / 10 + Math.random() * 0.5;
-            const dist  = 30 + Math.random() * 50;
-            spark.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
-            spark.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
-            document.body.appendChild(spark);
-            spark.addEventListener('animationend', () => spark.remove());
-        }
+  var year = document.getElementById('year');
+  if (year) year.textContent = new Date().getFullYear();
+
+  var save = document.getElementById('save-pdf');
+  if (save) save.addEventListener('click', function () { window.print(); });
+
+  // Click the plane: it rocks its wings (the pilot's "acknowledged").
+  var reduce = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  document.querySelectorAll('.plane').forEach(function (plane) {
+    plane.addEventListener('click', function () {
+      if (reduce && reduce.matches) return;
+      var body = plane.querySelector('.plane-body');
+      body.classList.remove('glide', 'rock');
+      void body.getBoundingClientRect();
+      body.classList.add('rock');
     });
+  });
+  document.addEventListener('animationend', function (e) {
+    if (e.animationName === 'rock') e.target.classList.remove('rock');
+  });
 
-    const planeEl = document.querySelector('.plane');
-    const drops = ['✨','🛩️','😎','😸'];
-    let planeLooping = false;
-    if (planeEl) {
-        planeEl.addEventListener('click', (e) => {
-            if (!isFun() || planeLooping || prefersReducedMotion()) return;
-            e.stopPropagation();
-            planeLooping = true;
-            const rect = planeEl.getBoundingClientRect();
-            for (let i = 0; i < 5; i++) {
-                setTimeout(() => {
-                    const d = document.createElement('div');
-                    d.className = 'plane-drop';
-                    d.textContent = drops[Math.floor(Math.random() * drops.length)];
-                    d.style.left = (rect.left + rect.width / 2 + (Math.random() - 0.5) * 30) + 'px';
-                    d.style.top  = (rect.top  + rect.height / 2) + 'px';
-                    document.body.appendChild(d);
-                    d.addEventListener('animationend', () => d.remove());
-                }, i * 120);
-            }
-            setTimeout(() => { planeLooping = false; }, 800);
-        });
-    }
+  // Live visitor counter (the Serverless cloud resume project, running on this page).
+  var count = document.getElementById('visitor-count');
+  var note = document.getElementById('visitor-note');
+  if (count && window.fetch) {
+    fetch('https://57draatqxi.execute-api.us-east-2.amazonaws.com/default/VisitorCount')
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (data) {
+        var n = Number(data);
+        count.textContent = Number.isFinite(n) ? n.toLocaleString('en-US') : String(data);
+      })
+      .catch(function (err) {
+        count.textContent = '—';
+        if (note) note.textContent = 'The counter API didn’t respond. Refresh the page to try again.';
+        console.error('Visitor counter failed:', err);
+      });
+  }
+})();
 </script>
 </body>
 </html>
