@@ -1,12 +1,4 @@
 <!DOCTYPE html>
-<!--
-  Jessica Paradise — résumé site
-  One file: all CSS and JS are inline, so there is no stylesheet to cache-bust.
-  Assets expected next to it: /favicon.ico and aws.png.
-
-  Passed DVA-C02? Change data-dva="pending" to data-dva="passed" on the <html> tag below.
-  The route chart, the plane and the certifications list all update from that one attribute.
--->
 <html lang="en" data-dva="pending">
 <head>
 <meta charset="utf-8">
@@ -49,12 +41,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=B612:ital,wght@0,400;0,700;1,400&family=B612+Mono&display=swap" rel="stylesheet">
 <style>
-/* ==========================================================================
-   Route chart — an IFR-chart look for a pilot turned cloud engineer.
-   Day = paper chart. Night = EFB night mode.
-   Color meaning: ink = done, magenta = in progress, blue = links / destination.
-   ========================================================================== */
-
+  
 :root {
   --paper: #f1f4ee;
   --ink: #15202b;
@@ -121,15 +108,13 @@ a:hover { text-decoration-thickness: 2px; }
 .skip:focus { top: 12px; }
 .wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
 
-/* One-attribute switch for the DVA-C02 result */
 [data-dva="pending"] .dva-passed,
 [data-dva="passed"] .dva-pending { display: none; }
 
-/* ---------- Hero ---------- */
 
 .hero { position: relative; isolation: isolate; padding-block: 22px 8px; }
 .hero::before {
-  /* chart graticule: lat/long lines with minute ticks */
+
   content: "";
   position: absolute;
   inset: 0 calc(50% - 50vw);
@@ -182,8 +167,6 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .linkish:hover { text-decoration-thickness: 2px; }
 
-/* ---------- Route chart ---------- */
-
 .chart { margin-top: clamp(28px, 4vw, 44px); }
 .route { width: 100%; height: auto; overflow: visible; }
 .route-v { display: none; max-width: 440px; }
@@ -229,7 +212,6 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .plane-body { transform-box: fill-box; transform-origin: center; }
 
-/* The one orchestrated moment: the route draws itself once on load. */
 @media (prefers-reduced-motion: no-preference) {
   .route .draw { stroke-dasharray: 1 1; animation: draw .55s cubic-bezier(.55, 0, .35, 1) var(--d, 0s) backwards; }
   .route .fade { animation: fade .45s ease-out var(--d, 0s) backwards; }
@@ -252,7 +234,6 @@ a:hover { text-decoration-thickness: 2px; }
 .legend svg { width: 14px; height: 12px; overflow: visible; }
 .legend svg.line { width: 24px; height: 8px; }
 
-/* ---------- Sections ---------- */
 
 main { padding-top: clamp(64px, 9vw, 120px); }
 .block { display: grid; gap: 18px 56px; padding-bottom: clamp(64px, 8vw, 112px); }
@@ -276,7 +257,7 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
 .carry td { width: 50%; padding: 11px 16px 11px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
 .carry td:first-child { color: var(--ink-2); }
 
-/* Skills as a challenge–response checklist */
+
 .checklist { list-style: none; padding: 0; max-width: 760px; }
 .checklist li { display: flex; align-items: baseline; gap: 12px; padding: 7px 0; }
 .checklist .ch {
@@ -298,7 +279,7 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
   .checklist .rs { display: block; max-width: none; text-align: left; }
 }
 
-/* Certifications: same triangle symbols as the chart */
+
 .certs { list-style: none; padding: 0; max-width: 760px; display: grid; gap: 18px; }
 .cert { display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; gap: 2px 16px; align-items: start; }
 .cert .mark { width: 14px; height: 12px; margin-top: 6px; overflow: visible; }
@@ -312,7 +293,7 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
   .cert .when { grid-column: 2; }
 }
 
-/* Projects */
+
 .projects { display: grid; gap: clamp(56px, 7vw, 80px); }
 .project .sub { margin-top: 4px; color: var(--ink-2); }
 .project h3 { font-size: 1.375rem; }
@@ -329,7 +310,7 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
 .pair { display: grid; gap: clamp(56px, 7vw, 72px) 44px; }
 @media (min-width: 1000px) { .pair { grid-template-columns: 1fr 1fr; } }
 
-/* Architecture insets, drawn like chart insets */
+
 .flow {
   container-type: inline-size;
   margin-top: 18px; padding: 16px 18px 18px;
@@ -382,7 +363,7 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
 .counter-value { font-family: var(--mono); font-size: 1.5rem; line-height: 1.2; }
 .counter-note { margin-top: 2px; color: var(--ink-2); font-size: .875rem; }
 
-/* Experience and education */
+
 .role .when { color: var(--ink-2); font-size: .9375rem; }
 .role h3 { margin-top: 4px; font-size: 1.375rem; }
 .role .org { margin-top: 2px; }
@@ -395,13 +376,12 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
 .edu span { display: block; color: var(--ink-2); }
 .edu .now { color: var(--magenta); }
 
-/* Footer */
 .foot { padding-block: 56px 72px; border-top: 1px solid var(--rule); }
 .quote { max-width: 32ch; font-size: clamp(1.25rem, 1rem + 1vw, 1.625rem); font-style: italic; line-height: 1.35; }
 .foot-links { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 8px 24px; }
 .colophon { margin-top: 20px; max-width: 72ch; color: var(--ink-2); font-size: .8125rem; }
 
-/* ---------- Print / Save as PDF ---------- */
+
 @media print {
   :root:root {
     --paper: #fff; --ink: #111a24; --ink-2: #4b5866; --rule: #d3d9d4;
@@ -460,9 +440,9 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
   </div>
 
   <h1>Jessica Paradise</h1>
-  <p class="lede">Eleven years flying through clouds.<br> Now I build them.</p>
+  <p class="lede">Eleven years flying through clouds.<br> Now I want to build them.</p>
   <p class="intro">AWS Certified Solutions Architect and ATP-rated jet captain in Austin, Texas.</p>
-  <p class="contact-print">jessica.paradise@pm.me &nbsp;|&nbsp; github.com/jessicaparadise &nbsp;|&nbsp; linkedin.com/in/jessica-paradise &nbsp;|&nbsp; jessicaparadise.com</p>
+  <p class="contact-print">jessica.paradise@protonmail.com &nbsp;|&nbsp; github.com/jessicaparadise &nbsp;|&nbsp; linkedin.com/in/jessicaparadise &nbsp;|&nbsp; jessicaparadise.com</p>
 
   <div class="actions">
     <a class="btn" href="mailto:jessica.paradise@pm.me">Email me</a>
@@ -559,7 +539,7 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
       </li>
       <li class="cert">
         <svg class="mark" viewBox="-7.5 -8.5 15 13" aria-hidden="true"><polygon class="wp done" points="0,-6.9 -6,3.5 6,3.5"/></svg>
-        <div><strong>FAA Airline Transport Pilot</strong><span class="sub">Also a Certified Flight Instructor</span></div>
+        <div><strong>FAA Airline Transport Pilot</strong><span class="sub"></span></div>
         <span class="when"></span>
       </li>
     </ul>
@@ -645,18 +625,18 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
 <footer class="foot wrap">
   <p class="quote">The best time to plant a tree was 20 years ago. The second best time is now.</p>
   <p class="foot-links">
-    <a href="mailto:jessica.paradise@pm.me">jessica.paradise@pm.me</a>
+    <a href="mailto:jessica.paradise@pm.me">jessica.paradise@protonmail.com</a>
     <a href="https://github.com/jessicaparadise" target="_blank" rel="noopener">GitHub</a>
-    <a href="https://www.linkedin.com/in/jessica-paradise" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/jessicaparadise" target="_blank" rel="noopener">LinkedIn</a>
   </p>
-  <p class="colophon">© <span id="year">2026</span> Jessica Paradise. Hosted on S3 and CloudFront, deployed with GitHub Actions. Set in B612, the typeface designed for Airbus cockpit displays.</p>
+  <p class="colophon">© <span id="year">2026</span> Jessica Paradise. Hosted on S3 and CloudFront, deployed with GitHub Actions.</p>
 </footer>
 
 <script>
 (function () {
   var root = document.documentElement;
 
-  // Day / Night. No saved choice = follow the system setting.
+  
   var buttons = document.querySelectorAll('[data-set-theme]');
   var system = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
   function currentTheme() {
@@ -700,7 +680,7 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
     if (e.animationName === 'rock') e.target.classList.remove('rock');
   });
 
-  // Live visitor counter (the Serverless cloud resume project, running on this page).
+  // Live visitor counter
   var count = document.getElementById('visitor-count');
   var note = document.getElementById('visitor-note');
   if (count && window.fetch) {
