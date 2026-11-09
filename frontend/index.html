@@ -21,7 +21,7 @@
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Jessica Paradise",
-  "jobTitle": "Software Engineer",
+  "jobTitle": "Cloud Support Engineer",
   "email": "mailto:jessica.paradise@protonmail.com",
   "url": "https://jessicaparadise.com",
   "sameAs": [
@@ -484,7 +484,8 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
     <h2 id="about-h">About</h2>
     <div>
       <div class="prose">
-        <p>I’m a former pilot and jet captain moving into cloud engineering. I hold the AWS Solutions Architect – Associate and Developer – Associate certifications.</p>
+        <p>I’m a former jet captain moving into cloud engineering. I hold the AWS Solutions Architect – Associate and Developer – Associate certifications, and I build on AWS with Terraform, Lambda and GitHub Actions.</p>
+        <p>Nine years and 4,500+ flight hours (3,000+ as pilot in command) taught me to troubleshoot under pressure, work from checklists, and keep everyone informed. I flew corporate, fractional, cargo and Part 121 airline operations, including Canada, Mexico, Central America and the Caribbean.</p>
         <p>I’m completing a B.S. in Computer Science at WGU.</p>
       </div>
       <div class="carry">
@@ -507,9 +508,10 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
     <h2 id="skills-h">Skills</h2>
     <ul class="checklist">
       <li><span class="ch">Cloud (AWS)</span><span class="rs">Lambda, API Gateway, DynamoDB, S3, CloudFront, Route 53, IAM, Secrets Manager, serverless architecture</span></li>
-      <li><span class="ch">Operations</span><span class="rs">Linux, ITIL 4 service management, incident response, runbooks and SOPs, change management</span></li>
-      <li><span class="ch">Infrastructure as code and CI/CD</span><span class="rs">Terraform, Docker, GitHub Actions</span></li>
-      <li><span class="ch">Languages and frameworks</span><span class="rs">Java (Spring Boot), Python, JavaScript, Angular, React Native</span></li>
+      <li><span class="ch">Networking and web</span><span class="rs">DNS, HTTP/HTTPS, TLS certificates, CDN caching, REST APIs</span></li>
+      <li><span class="ch">Operations</span><span class="rs">Linux, troubleshooting and root cause analysis, ITIL 4 incident and change management, runbooks and SOPs</span></li>
+      <li><span class="ch">Infrastructure as code and CI/CD</span><span class="rs">Terraform, Docker, Git, GitHub Actions</span></li>
+      <li><span class="ch">Languages and databases</span><span class="rs">Java (Spring Boot), Python, JavaScript, SQL (MySQL), Angular, React Native</span></li>
       <li><span class="ch">Embedded and hardware</span><span class="rs">ESP32, KiCad PCB design</span></li>
     </ul>
   </section>
@@ -561,22 +563,40 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
 
       <article class="project project-lead">
         <div>
-          <h3>Landon Hotel</h3>
-          <p class="sub">Containerized Spring Boot and Angular app · WGU D387</p>
+          <h3>Glowtail</h3>
+          <p class="sub">Event-driven AWS incident responder · <span class="tag-now">In progress</span></p>
           <ul class="practices">
-            <li>Added multithreading to a Spring Boot back end to serve welcome messages in English and French at the same time.</li>
-            <li>Built time-zone conversion and multi-currency pricing into the Angular front end.</li>
-            <li>Wrote a multi-stage Dockerfile that builds and runs the full app in a single container, keeping the final image small.</li>
+            <li>Building an incident responder: a CloudWatch alarm triggers EventBridge, which runs a Lambda that emails the latest error logs through SNS.</li>
+            <li>All infrastructure defined in Terraform with remote state in S3, deployed by GitHub Actions using OIDC, so no AWS keys are stored.</li>
+            <li>Adding an Amazon Bedrock (Claude) step that reads the error logs and summarizes what broke.</li>
           </ul>
-          <p class="stack">Built with Java, Spring Boot, Angular and Docker.</p>
+          <p class="stack">Uses Terraform, CloudWatch, EventBridge, Lambda, SNS, Amazon Bedrock and GitHub Actions. <a href="https://github.com/jessicaparadise/glowtail" target="_blank" rel="noopener">View on GitHub</a></p>
         </div>
         <div class="flow">
-          <div class="lane"><span class="lane-name">App</span><ol class="hops" aria-label="App path"><li>Angular</li><li>Spring Boot</li></ol></div>
-          <div class="lane"><span class="lane-name">Build</span><ol class="hops" aria-label="Build path"><li>Multi-stage Dockerfile</li><li>Single container</li></ol></div>
+          <div class="lane"><span class="lane-name">Alert</span><ol class="hops" aria-label="Alert path"><li>CloudWatch</li><li>EventBridge</li><li>Lambda</li><li>SNS</li></ol></div>
+          <div class="lane"><span class="lane-name">Deploy</span><ol class="hops" aria-label="Deploy path"><li>GitHub Actions</li><li>OIDC</li><li>Terraform</li></ol></div>
         </div>
       </article>
 
       <div class="pair">
+        <article class="project">
+          <h3>Serverless cloud resume</h3>
+          <p class="sub">The site you’re reading.</p>
+          <div class="flow">
+            <div class="lane"><span class="lane-name">Site</span><ol class="hops" aria-label="Site path"><li>Route 53</li><li>CloudFront</li><li>S3</li></ol></div>
+            <div class="lane"><span class="lane-name">Counter</span><ol class="hops" aria-label="Counter path"><li>API Gateway</li><li>Lambda</li><li>DynamoDB</li></ol></div>
+            <div class="lane"><span class="lane-name">Deploy</span><ol class="hops" aria-label="Deploy path"><li>GitHub Actions</li><li>S3</li></ol></div>
+          </div>
+          <ul class="practices">
+            <li>Configured Route 53 DNS and an HTTPS certificate for a custom domain, serving a static S3 site through CloudFront.</li>
+            <li>Built a visitor counter API with API Gateway, Lambda and DynamoDB.</li>
+            <li>Automated deploys with GitHub Actions: every push to main syncs S3 and invalidates the CloudFront cache.</li>
+          </ul>
+          <p class="counter"><span class="counter-label">Visitors so far</span><span class="counter-value" id="visitor-count">Counting…</span></p>
+          <p class="counter-note" id="visitor-note">Counted live by API Gateway, Lambda and DynamoDB when this page loaded.</p>
+          <p class="stack">Built with S3, CloudFront, Route 53, API Gateway, Lambda, DynamoDB and GitHub Actions.</p>
+        </article>
+
         <article class="project">
           <h3>Vacation Booking REST API</h3>
           <p class="sub">Spring Boot and MySQL · WGU D288</p>
@@ -589,6 +609,23 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
             <li>Debugged Hibernate 7 upgrade issues, including a retired MySQL dialect and a stale-object error on new carts.</li>
           </ul>
           <p class="stack">Built with Java, Spring Boot, JPA/Hibernate, MySQL and Angular.</p>
+        </article>
+      </div>
+
+      <div class="pair">
+        <article class="project">
+          <h3>Landon Hotel</h3>
+          <p class="sub">Containerized Spring Boot and Angular app · WGU D387</p>
+          <div class="flow">
+            <div class="lane"><span class="lane-name">App</span><ol class="hops" aria-label="App path"><li>Angular</li><li>Spring Boot</li></ol></div>
+            <div class="lane"><span class="lane-name">Build</span><ol class="hops" aria-label="Build path"><li>Multi-stage Dockerfile</li><li>Single container</li></ol></div>
+          </div>
+          <ul class="practices">
+            <li>Added multithreading to a Spring Boot back end to serve welcome messages in English and French at the same time.</li>
+            <li>Built time-zone conversion and multi-currency pricing into the Angular front end.</li>
+            <li>Wrote a multi-stage Dockerfile that builds and runs the full app in a single container, keeping the final image small.</li>
+          </ul>
+          <p class="stack">Built with Java, Spring Boot, Angular and Docker.</p>
         </article>
 
         <article class="project">
@@ -615,20 +652,6 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
           <p class="desc">Designing a custom PCB in KiCad for an ESP32 device. Earned a PCBWay manufacturing sponsorship for the build.</p>
           <p class="stack">Built with ESP32 and KiCad.</p>
         </article>
-
-        <article class="project">
-          <h3>Serverless cloud resume</h3>
-          <p class="sub">The site you’re reading.</p>
-          <div class="flow">
-            <div class="lane"><span class="lane-name">Site</span><ol class="hops" aria-label="Site path"><li>Route 53</li><li>CloudFront</li><li>S3</li></ol></div>
-            <div class="lane"><span class="lane-name">Counter</span><ol class="hops" aria-label="Counter path"><li>API Gateway</li><li>Lambda</li><li>DynamoDB</li></ol></div>
-            <div class="lane"><span class="lane-name">Deploy</span><ol class="hops" aria-label="Deploy path"><li>GitHub Actions</li><li>S3</li></ol></div>
-          </div>
-          <p class="desc">A globally distributed static site on S3, CloudFront and Route 53, with a serverless visitor-counter API. Every change ships through a GitHub Actions pipeline.</p>
-          <p class="counter"><span class="counter-label">Visitors so far</span><span class="counter-value" id="visitor-count">Counting…</span></p>
-          <p class="counter-note" id="visitor-note">Counted live by API Gateway, Lambda and DynamoDB when this page loaded.</p>
-          <p class="stack">Built with S3, CloudFront, Route 53, API Gateway, Lambda, DynamoDB and GitHub Actions.</p>
-        </article>
       </div>
 
     </div>
@@ -649,7 +672,7 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
         </ul>
       </article>
       <article class="role">
-        <p class="when">Apr 2024 – Apr 2026 · Seattle, WA</p>
+        <p class="when">Jan 2024 – Apr 2026 · Seattle, WA</p>
         <h3>Captain, Phenom 300</h3>
         <p class="org">JNP Aviation</p>
         <ul>
@@ -688,6 +711,20 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
         <p class="org">Horizon Air</p>
         <ul>
           <li>Built crew resource management (CRM) and checklist discipline across high-frequency, multi-leg airline schedules.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="volunteer" class="block" aria-labelledby="volunteer-h">
+    <h2 id="volunteer-h">Volunteer</h2>
+    <div class="roles">
+      <article class="role">
+        <p class="when">Aug 2026 · Arusha, Tanzania</p>
+        <h3>Volunteer Teacher</h3>
+        <p class="org">IVHQ (International Volunteer HQ) · Perfect Vision</p>
+        <ul>
+          <li>Taught English and math to girls at a women’s education organization, building their confidence alongside the language.</li>
         </ul>
       </article>
     </div>
