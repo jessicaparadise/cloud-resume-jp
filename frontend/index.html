@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Jessica Paradise | Cloud Engineering, AWS Certified</title>
-<meta name="description" content="Former airline pilot and jet captain moving into cloud engineering. AWS Certified Solutions Architect – Associate and Developer – Associate, building an AI supplier-sourcing platform in Austin, TX.">
+<title>Jessica Paradise | Cloud Support Engineer, AWS Certified</title>
+<meta name="description" content="Cloud Support Engineer in Austin, TX. AWS Certified Solutions Architect and Developer – Associate, hands-on with Terraform, GitHub Actions, Lambda and Linux. Former jet captain with nine years in FAA-regulated operations.">
 <link rel="canonical" href="https://jessicaparadise.com">
 <meta name="author" content="Jessica Paradise">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jessicaparadise.com">
-<meta property="og:title" content="Jessica Paradise | Cloud Engineering, AWS Certified">
+<meta property="og:title" content="Jessica Paradise | Cloud Support Engineer, AWS Certified">
 <meta property="og:description" content="Nine years flying through clouds. Now I want to build them.">
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#f1f4ee" media="(prefers-color-scheme: light)">
@@ -445,7 +445,7 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
 
   <h1>Jessica Paradise</h1>
   <p class="lede">Nine years flying through clouds.<br> Now I want to build them.</p>
-  <p class="intro">Cloud engineering · AWS Certified (SAA-C03, DVA-C02) · ATP captain · Austin, Texas</p>
+  <p class="intro">Cloud Support Engineer · AWS Certified Solutions Architect &amp; Developer – Associate · Austin, Texas</p>
   <p class="contact-print">jessica.paradise@protonmail.com &nbsp;|&nbsp; github.com/jessicaparadise &nbsp;|&nbsp; gitlab.com/jpara57 &nbsp;|&nbsp; linkedin.com/in/jessicaparadise &nbsp;|&nbsp; jessicaparadise.com</p>
 
   <div class="actions">
@@ -484,9 +484,9 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
     <h2 id="about-h">About</h2>
     <div>
       <div class="prose">
-        <p>I’m a former jet captain moving into cloud engineering. I hold the AWS Solutions Architect – Associate and Developer – Associate certifications, and I build on AWS with Terraform, Lambda and GitHub Actions.</p>
-        <p>Nine years and 4,500+ flight hours (3,000+ as pilot in command) taught me to troubleshoot under pressure, work from checklists, and keep everyone informed. I flew corporate, fractional, cargo and Part 121 airline operations, including Canada, Mexico, Central America and the Caribbean.</p>
-        <p>I’m completing a B.S. in Computer Science at WGU.</p>
+        <p>I’m a former jet captain moving into cloud support engineering. I hold the AWS Solutions Architect – Associate and Developer – Associate certifications, and I work hands-on with Terraform, GitHub Actions, Lambda and Linux.</p>
+        <p>Nine years and 4,500+ flight hours (3,000+ as pilot in command) in FAA-regulated operations taught me to troubleshoot under pressure, work from checklists, and keep everyone informed. I flew corporate, fractional, cargo and Part 121 airline operations, including Canada, Mexico, Central America and the Caribbean.</p>
+        <p>I’m completing a B.S. in Computer Science at WGU, expected August 2027.</p>
       </div>
       <div class="carry">
         <h3>What carries over</h3>
@@ -507,12 +507,11 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
   <section id="skills" class="block" aria-labelledby="skills-h">
     <h2 id="skills-h">Skills</h2>
     <ul class="checklist">
-      <li><span class="ch">Cloud (AWS)</span><span class="rs">Lambda, API Gateway, DynamoDB, S3, CloudFront, Route 53, IAM, Secrets Manager, serverless architecture</span></li>
+      <li><span class="ch">Cloud (AWS)</span><span class="rs">Lambda, API Gateway, DynamoDB, S3, CloudFront, Route 53, IAM, Secrets Manager, serverless</span></li>
       <li><span class="ch">Networking and web</span><span class="rs">DNS, HTTP/HTTPS, TLS certificates, CDN caching, REST APIs</span></li>
-      <li><span class="ch">Operations</span><span class="rs">Linux, troubleshooting and root cause analysis, ITIL 4 incident and change management, runbooks and SOPs</span></li>
+      <li><span class="ch">Support and operations</span><span class="rs">Linux, troubleshooting and root cause analysis, ITIL 4 incident and change management, runbooks</span></li>
       <li><span class="ch">Infrastructure as code and CI/CD</span><span class="rs">Terraform, Docker, Git, GitHub Actions</span></li>
-      <li><span class="ch">Languages and databases</span><span class="rs">Java (Spring Boot), Python, JavaScript, SQL (MySQL), Angular, React Native</span></li>
-      <li><span class="ch">Embedded and hardware</span><span class="rs">ESP32, KiCad PCB design</span></li>
+      <li><span class="ch">Languages and databases</span><span class="rs">Python, Java (Spring Boot), JavaScript, SQL (MySQL), Angular</span></li>
     </ul>
   </section>
 
@@ -566,7 +565,7 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
           <h3>Glowtail</h3>
           <p class="sub">Event-driven AWS incident responder · <span class="tag-now">In progress</span></p>
           <ul class="practices">
-            <li>Building an incident responder: a CloudWatch alarm triggers EventBridge, which runs a Lambda that emails the latest error logs through SNS.</li>
+            <li>Building an incident responder: a CloudWatch alarm triggers EventBridge, which runs a Lambda that emails error logs via SNS.</li>
             <li>All infrastructure defined in Terraform with remote state in S3, deployed by GitHub Actions using OIDC, so no AWS keys are stored.</li>
             <li>Adding an Amazon Bedrock (Claude) step that reads the error logs and summarizes what broke.</li>
           </ul>
@@ -585,11 +584,11 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
           <div class="flow">
             <div class="lane"><span class="lane-name">Site</span><ol class="hops" aria-label="Site path"><li>Route 53</li><li>CloudFront</li><li>S3</li></ol></div>
             <div class="lane"><span class="lane-name">Counter</span><ol class="hops" aria-label="Counter path"><li>API Gateway</li><li>Lambda</li><li>DynamoDB</li></ol></div>
-            <div class="lane"><span class="lane-name">Deploy</span><ol class="hops" aria-label="Deploy path"><li>GitHub Actions</li><li>S3</li></ol></div>
+            <div class="lane"><span class="lane-name">Deploy</span><ol class="hops" aria-label="Deploy path"><li>GitHub Actions</li><li>OIDC</li><li>S3</li></ol></div>
           </div>
           <ul class="practices">
             <li>Configured Route 53 DNS and an HTTPS certificate for a custom domain, serving a static S3 site through CloudFront.</li>
-            <li>Built a visitor counter API with API Gateway, Lambda and DynamoDB.</li>
+            <li>Built a visitor counter API with API Gateway, Lambda, and DynamoDB.</li>
             <li>Automated deploys with GitHub Actions: every push to main syncs S3 and invalidates the CloudFront cache.</li>
           </ul>
           <p class="counter"><span class="counter-label">Visitors so far</span><span class="counter-value" id="visitor-count">Counting…</span></p>
@@ -604,13 +603,14 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
             <div class="lane"><span class="lane-name">Request</span><ol class="hops" aria-label="Request path"><li>Angular</li><li>REST API</li><li>MySQL</li></ol></div>
           </div>
           <ul class="practices">
-            <li>Built a Spring Boot REST API connecting an Angular front end to a MySQL database, mapping eight JPA entities to an existing schema.</li>
-            <li>Wrote a transactional checkout service and endpoint that validates each order and saves the cart and its items together.</li>
-            <li>Debugged Hibernate 7 upgrade issues, including a retired MySQL dialect and a stale-object error on new carts.</li>
+            <li>Built a REST API connecting an Angular front end to a MySQL database, mapping eight JPA entities to an existing schema.</li>
+            <li>Wrote a transactional checkout endpoint that saves an order and all its items together, or not at all.</li>
+            <li>Diagnosed and fixed Hibernate 7 upgrade failures, including a retired MySQL dialect and a stale-object error on new carts.</li>
           </ul>
           <p class="stack">Built with Java, Spring Boot, JPA/Hibernate, MySQL and Angular.</p>
         </article>
       </div>
+
 
       <div class="pair">
         <article class="project">
@@ -641,7 +641,6 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
           <p class="stack">Built with Java, Spring Boot, Thymeleaf and JUnit.</p>
         </article>
       </div>
-
       <div class="pair">
         <article class="project">
           <h3>ESP32 IoT device</h3>
@@ -649,7 +648,7 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
           <div class="flow">
             <div class="lane"><span class="lane-name">Build</span><ol class="hops" aria-label="Build path"><li>KiCad design</li><li>PCBWay fab</li><li>ESP32 board</li></ol></div>
           </div>
-          <p class="desc">Designing a custom PCB in KiCad for an ESP32 device. Earned a PCBWay manufacturing sponsorship for the build.</p>
+          <p class="desc">Designing a custom ESP32 PCB in KiCad; earned a PCBWay manufacturing sponsorship for the build.</p>
           <p class="stack">Built with ESP32 and KiCad.</p>
         </article>
       </div>
@@ -661,56 +660,18 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
     <h2 id="experience-h">Experience</h2>
     <div class="roles">
       <article class="role">
-        <p class="when">2026 – present · Austin, TX</p>
-        <h3>Software/Cloud Engineer (part-time)</h3>
-        <p class="org">AI Supplier-Sourcing Platform (pre-launch)</p>
+        <p class="when">2017 – 2026</p>
+        <h3>Captain &amp; First Officer, Commercial Aviation</h3>
+        <p class="org">JNP Aviation · Air Transport International · Solairus Aviation · Flexjet · Horizon Air</p>
+        <p class="facts">4,500+ flight hours (3,000+ PIC)</p>
         <ul>
-          <li>Building an AI-powered supplier search: buyers describe exactly what they need and see only suppliers that can do it.</li>
-          <li>Built the supplier data pipeline with Firecrawl, scraping supplier websites and structuring results for search.</li>
-          <li>Migrating the scraper from a local machine to AWS so it runs on managed infrastructure.</li>
-          <li>Centralizing credentials in AWS Secrets Manager as a single source of truth, with IAM access scoped to least privilege.</li>
-        </ul>
-      </article>
-      <article class="role">
-        <p class="when">Jan 2024 – Apr 2026 · Seattle, WA</p>
-        <h3>Captain, Phenom 300</h3>
-        <p class="org">JNP Aviation</p>
-        <ul>
-          <li>Sole operator and final decision-maker for a single-pilot jet, diagnosing and resolving abnormal situations in real time.</li>
-          <li>Owned the full aircraft management program: maintenance coordination, inspections, and readiness tracking.</li>
-          <li>Ran post-maintenance functional check flights, validating that repaired systems met spec before return to service.</li>
-        </ul>
-      </article>
-      <article class="role">
-        <p class="when">Jul 2023 – Dec 2023</p>
-        <h3>First Officer, B-767 / B-757</h3>
-        <p class="org">Air Transport International</p>
-        <ul>
-          <li>Operated heavy jets on international cargo and Department of Defense missions; handled international flight planning.</li>
-        </ul>
-      </article>
-      <article class="role">
-        <p class="when">Oct 2021 – Jan 2023</p>
-        <h3>Captain, Phenom 300</h3>
-        <p class="org">Solairus Aviation</p>
-        <ul>
-          <li>Delivered reliable, on-schedule service to private clients as the single point of accountability for each operation.</li>
-        </ul>
-      </article>
-      <article class="role">
-        <p class="when">Nov 2018 – Oct 2021</p>
-        <h3>Captain and Second in Command, Phenom 300 / Legacy 450 / 500</h3>
-        <p class="org">Flexjet</p>
-        <ul>
-          <li>Worked in a high-tempo, 24/7 operation with strict adherence to standard operating procedures.</li>
-        </ul>
-      </article>
-      <article class="role">
-        <p class="when">Jan 2017 – Aug 2018</p>
-        <h3>First Officer, Q400</h3>
-        <p class="org">Horizon Air</p>
-        <ul>
-          <li>Built crew resource management (CRM) and checklist discipline across high-frequency, multi-leg airline schedules.</li>
+          <li>Captain of single-pilot Phenom 300 jets and sole decision-maker, making go/no-go risk calls on weather, aircraft status, and duty limits.</li>
+          <li>Ran abnormal and emergency checklists to troubleshoot aircraft failures in real time, following set procedures under pressure.</li>
+          <li>Followed SOPs and checklists on every flight in FAA-regulated operations, where compliance is required and every step is documented.</li>
+          <li>Flew Boeing 767/757 heavy jets on international cargo and DoD missions, managing international flight planning in a two-pilot crew.</li>
+          <li>Coordinated with crew, dispatch, maintenance, and air traffic control, keeping everyone informed when plans changed.</li>
+          <li>Directed an aircraft management program (maintenance, inspections, readiness); verified repairs with functional check flights.</li>
+          <li>Flew corporate, fractional, cargo, and Part 121 airline ops, including Canada, Mexico, Central America, and the Caribbean.</li>
         </ul>
       </article>
     </div>
@@ -748,7 +709,7 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
     <a href="https://gitlab.com/jpara57" target="_blank" rel="noopener">GitLab</a>
     <a href="https://www.linkedin.com/in/jessicaparadise" target="_blank" rel="noopener">LinkedIn</a>
   </p>
-  <p class="colophon">© <span id="year">2026</span> Jessica Paradise. Hosted on S3 and CloudFront, deployed with GitHub Actions.</p>
+  <p class="colophon">© <span id="year">2026</span> Jessica Paradise. Hosted on S3 and CloudFront, deployed with GitHub Actions using OIDC.</p>
 </footer>
 
 <script>
