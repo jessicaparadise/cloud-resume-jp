@@ -614,6 +614,35 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 700; }
 
       <div class="pair">
         <article class="project">
+          <h3>Landon Hotel</h3>
+          <p class="sub">Containerized Spring Boot and Angular app · WGU D387</p>
+          <div class="flow">
+            <div class="lane"><span class="lane-name">App</span><ol class="hops" aria-label="App path"><li>Angular</li><li>Spring Boot</li></ol></div>
+            <div class="lane"><span class="lane-name">Build</span><ol class="hops" aria-label="Build path"><li>Multi-stage Dockerfile</li><li>Single container</li></ol></div>
+          </div>
+          <ul class="practices">
+            <li>Added multithreading to a Spring Boot back end to serve welcome messages in English and French at the same time.</li>
+            <li>Built time-zone conversion and multi-currency pricing into the Angular front end.</li>
+            <li>Wrote a multi-stage Dockerfile that builds and runs the full app in a single container, keeping the final image small.</li>
+          </ul>
+          <p class="stack">Built with Java, Spring Boot, Angular and Docker.</p>
+        </article>
+
+        <article class="project">
+          <h3>Parrot Ice Drones</h3>
+          <p class="sub">Spring Boot inventory app · WGU D287</p>
+          <div class="flow">
+            <div class="lane"><span class="lane-name">App</span><ol class="hops" aria-label="App path"><li>Thymeleaf</li><li>Spring MVC</li><li>Inventory</li></ol></div>
+          </div>
+          <ul class="practices">
+            <li>Customized a Spring Boot MVC inventory app with Thymeleaf pages, startup data seeding, and a Buy Now flow that updates stock.</li>
+            <li>Built a custom validator that enforces minimum and maximum inventory levels, backed by unit tests.</li>
+          </ul>
+          <p class="stack">Built with Java, Spring Boot, Thymeleaf and JUnit.</p>
+        </article>
+      </div>
+      <div class="pair">
+        <article class="project">
           <h3>ESP32 IoT device</h3>
           <p class="sub">PCBWay-sponsored hardware build · <span class="tag-now">In progress</span></p>
           <div class="flow">
