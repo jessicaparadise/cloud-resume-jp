@@ -31,7 +31,8 @@ On every push to `main`, GitHub Actions signs in to AWS with OIDC, syncs the fro
 
 ```
 cloud-resume-jp/
-├── .github/workflows/    # CI/CD pipeline
+├── .github/workflows/    # CI/CD pipeline (GitHub OIDC, no stored keys)
+├── bootstrap/            # Terraform: least-privilege deploy role
 ├── frontend/             # HTML, CSS — the resume itself
 └── README.md
 ```
